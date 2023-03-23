@@ -1,0 +1,437 @@
+package com.company.service;
+
+
+import com.company.model.*;
+import com.company.model.response.OrderResponse;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+public class ShopService {
+    private ArrayList<User> userList;
+    private ArrayList<Shop> shopList;
+    private ArrayList<Admin> adminList;
+    private ArrayList<Seller> sellerList;
+    private ArrayList<Product> productList;
+    private ArrayList<Category> categoryList;
+    private ArrayList<RequestWalletCharge> requestWalletChargeArrayList;
+    private User user;
+    private Admin admin;
+    private Seller seller;
+
+    public ArrayList<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(ArrayList<User> userList) {
+        this.userList = userList;
+    }
+
+    public ArrayList<Shop> getShopList() {
+        return shopList;
+    }
+
+
+    public void setShopList(ArrayList<Shop> shopList) {
+        this.shopList = shopList;
+    }
+
+    public ArrayList<Admin> getAdminList() {
+        return adminList;
+    }
+
+    public void setAdminList(ArrayList<Admin> adminList) {
+        this.adminList = adminList;
+    }
+
+    public ArrayList<Seller> getSellerList() {
+        return sellerList;
+    }
+
+    public void setSellerList(ArrayList<Seller> sellerList) {
+        this.sellerList = sellerList;
+    }
+
+    public ArrayList<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(ArrayList<Product> productList) {
+        this.productList = productList;
+    }
+
+    public ArrayList<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(ArrayList<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    public ArrayList<RequestWalletCharge> getRequestWalletChargeArrayList() {
+        return requestWalletChargeArrayList;
+    }
+
+    public void setRequestWalletChargeArrayList(ArrayList<RequestWalletCharge> requestWalletChargeArrayList) {
+        this.requestWalletChargeArrayList = requestWalletChargeArrayList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
+
+    //To Do function
+
+    private static AtomicInteger at = new AtomicInteger(0);
+
+    public int getNextCountValue() {
+        return at.incrementAndGet();
+    }
+
+    public Optional<Shop> searchShop(String name){
+        return shopList.stream().filter(c->c.getName().equals(name)).findAny();
+
+    }
+
+    public void createShop(String name, String webSite, String phone) throws SQLException {
+        Optional<Shop> shop=searchShop(name);
+        if(!shop.isPresent()){
+            Shop newShop=new Shop(name,webSite,phone,0);
+            shopList.add(newShop);
+            System.out.println("Shop with name : "+newShop.getName()+"has been created");
+        }else {
+            System.out.println("Shop with name : "+ shop.get().getName()+"IS Exist");
+        }
+    }
+
+    public Optional<User> searchUser(String username){
+        return userList.stream().filter(c->c.getUsername().equals(username)
+        && c.getAccountType()==AccountType.USER).findAny();
+    }
+
+    public void createUser(String username,String password,String phone,String email,String address){
+        Optional<User> user=searchUser(username);
+        if(!user.isPresent()){
+            User newUser=new User(username,password,phone, AccountType.USER,true,"",
+                    email,address,new Wallet(WalletType.USER,0),new ShoppingCart(new Date(),new ArrayList<>()),
+                    new ArrayList<>(),new ArrayList<>());
+            userList.add(newUser);
+            newUser.crate();
+        }else {
+            System.out.println("Username is Already Exist");
+        }
+    }
+
+    public void updateUser(User user){
+        userList.forEach(c->{
+            if(c.getUsername().equals(user.getUsername())){
+                c.setToken(!user.getToken().equals("")?user.getToken():c.getToken());
+                c.setPassword(!user.getPassword().equals("")?user.getPassword():c.getPassword());
+                c.setPhone(!user.getPhone().equals("")?user.getPhone():c.getPhone());
+                c.setActive(user.isActive());
+                c.setPhone(user.getPhone().equals("")?user.getPhone():c.getPhone());
+                c.setEmail(!user.getEmail().equals("")?user.getEmail():c.getEmail());
+                c.setAddress(!user.getAddress().equals("")?user.getAddress():c.getAddress());
+                c.setWallet(user.getWallet()!=null?user.getWallet():c.getWallet());
+            }
+
+        });
+
+    }
+
+    public Optional<Admin> searchAdmin(String username){
+        return  adminList.stream().filter(c->c.getUsername().equals(username)
+        && c.getAccountType()==AccountType.ADMIN).findAny();
+    }
+
+    public void createAdmin(String username,String password,String phone,String email){
+        Optional<Admin> admin= searchAdmin(username);
+        if(!admin.isPresent()){
+            Admin newAdmin=new Admin(username,password,phone,AccountType.ADMIN,true,"",email);
+            adminList.add(newAdmin);
+            newAdmin.crate();
+        }else {
+            System.out.println("Username is Already Exist ");
+        }
+    }
+
+    public void updateAdmin(Admin admin){
+        adminList.forEach(c->{
+            if(c.getUsername().equals(admin.getUsername())){
+                c.setToken(!admin.getToken().equals("")?admin.getToken():c.getToken());
+                c.setPassword(!admin.getPassword().equals("")?admin.getPassword():c.getPassword());
+                c.setPhone(!admin.getPhone().equals("")?admin.getPhone():c.getPhone());
+                c.setActive(admin.isActive());
+                c.setPhone(admin.getPhone().equals("")?admin.getPhone():c.getPhone());
+                c.setEmail(!admin.getEmail().equals("")?admin.getEmail():c.getEmail());
+            }
+
+        });
+    }
+
+    public Optional<Seller> searchSeller(String username){
+        return sellerList.stream().filter(c->c.getUsername().equals(username)
+                && c.getAccountType()==AccountType.SELLER).findAny();
+    }
+
+    public void createSeller(String username,String password,String phone,String companyName){
+        Optional<Seller> seller= searchSeller(username);
+        if(!seller.isPresent()){
+            Seller newSeller=new Seller(username,password,phone, AccountType.USER,true,"",companyName,
+                    new Wallet(WalletType.SELLER,0),new ArrayList<>());
+            sellerList.add(newSeller);
+            newSeller.crate();
+        }else {
+            System.out.println("Username is Already Exist ");
+        }
+    }
+
+    public void updateSeller(Seller seller){
+        sellerList.forEach(c->{
+            if(c.getUsername().equals(seller.getUsername())){
+                c.setToken(!seller.getToken().equals("")?seller.getToken():c.getToken());
+                c.setPassword(!seller.getPassword().equals("")?seller.getPassword():c.getPassword());
+                c.setPhone(!seller.getPhone().equals("")?seller.getPhone():c.getPhone());
+                c.setActive(seller.isActive());
+                c.setPhone(seller.getPhone().equals("")?seller.getPhone():c.getPhone());
+                c.setCompanyName(!seller.getCompanyName().equals("")?seller.getCompanyName():c.getCompanyName());
+                c.setWallet(seller.getWallet()!=null?seller.getWallet():c.getWallet());
+            }
+
+        });
+    }
+
+    public boolean login(String username, String password,AccountType accountType) {
+        // Implement login logic here
+        if(accountType==AccountType.USER){
+            Optional<User> user =searchUser(username);
+            if(user.isPresent() && user.get().getPassword().equals(password)){
+                user.get().setToken("Ub32587DA");
+                user.get().login();
+                return true;
+
+            }else {
+                return false;
+
+            }
+        }else if(accountType==AccountType.ADMIN){
+            Optional<Admin> admin =searchAdmin(username);
+            if(admin.isPresent() && admin.get().getPassword().equals(password)){
+                admin.get().setToken("Ab32587DA");
+                admin.get().login();
+                return true;
+
+            }else {
+                return false;
+
+            }
+        }else {
+            Optional<Seller> seller =searchSeller(username);
+            if(seller.isPresent() && seller.get().getPassword().equals(password)){
+                seller.get().setToken("Sb32587DA");
+                seller.get().login();
+                return true;
+
+            }else {
+                return false;
+
+            }
+        }
+
+    }
+
+    public List<Product> searchProductByCategory(String title){
+      return   productList.stream().filter(d->d.getCategory().getTitle().contains(title))
+                .collect(Collectors.toList());
+    }
+
+    public List<User> getAllUser(){
+        return userList;
+    }
+
+    public void createChargeWallet(User user,long amount){
+        int count=requestWalletChargeArrayList.size();
+        RequestWalletCharge charge=new RequestWalletCharge(count+1,user,new Date(),amount,Status.CREATE);
+        requestWalletChargeArrayList.add(charge);
+    }
+
+    public void acceptListChargeWallet(RequestWalletCharge request){
+        if(!admin.getToken().equals("")){
+            if(requestWalletChargeArrayList.stream()
+                .anyMatch(f->f.getId()==request.getId() && f.getStatus()==Status.DONE)){
+                System.out.println("Request for charge amount wallet has been done");
+            }
+            requestWalletChargeArrayList.forEach(c->{
+                if(c.getId()==request.getId()){
+                    c.setStatus(Status.DONE);
+                    userList.forEach(d->{
+                        if(d.getId()==c.getUser().getId()){
+                            d.getWallet().setBalance(c.getAmount());
+                        }
+                    });
+                    System.out.println("Request Charge Success");
+                }
+            });
+        }
+    }
+
+    public void createCategory(String title){
+        if (admin.getToken().equals("")) {
+            System.out.println("Admin not yet login");
+        }else {
+            int count=categoryList.size();
+            if(categoryList.stream().noneMatch(c->c.getTitle().equals(title))){
+                categoryList.add(new Category(count+1,title));
+            }
+        }
+    }
+
+    public ArrayList<Item> viewShoppingCart(){
+        if(user.getToken().equals("")){
+            System.out.println("User not yet login ");
+        }else {
+            return user.getShoppingCart().getItemList();
+        }
+        return null;
+    }
+
+    public ArrayList<Item> createShoppingCart(Product product,int qty){
+        if(user.getToken().equals("")){
+            System.out.println("User not yet login");
+        }else {
+            if(user.getShoppingCart().getItemList().size()>0){
+                user.getShoppingCart().getItemList().forEach(c->{
+                    if(c.getProduct().getName().equals(product.getName())){
+                        if(product.getQuantity()>=c.getQuantity()+qty){
+                            c.setQuantity(c.getQuantity()+qty);
+                            c.setPrice(product.getPrice()*(c.getQuantity()+qty));
+                        }else {
+                            System.out.println("Quantity for product not valid");
+                        }
+                    }else {
+                        if(product.getQuantity()>=qty){
+                            Item item=new Item(product,qty,product.getPrice()*qty);
+                            user.getShoppingCart().getItemList().add(item);
+                        }else {
+                            System.out.println("Quantity for product not valid");
+                        }
+                    }
+                });
+            }else {
+                if(product.getQuantity()>=qty){
+                    Item item=new Item(product,qty,product.getPrice()*qty);
+                    user.getShoppingCart().getItemList().add(item);
+
+                }else {
+                    System.out.println("Quantity for product not valid");
+                }
+            }
+
+
+        }
+        return viewShoppingCart();
+    }
+
+    public ArrayList<Item> removeItemFromShoppingCart(Product product){
+        if(user.getToken().equals("")){
+            System.out.println("User not yet login");
+        }else {
+            final Item[] item = {new Item()};
+            user.getShoppingCart().getItemList().forEach(d->{
+                if(d.getProduct().equals(product)){
+                    item[0] =d;
+                }
+            });
+            user.getShoppingCart().getItemList().remove(item);
+            return viewShoppingCart();
+        }
+        return  null;
+    }
+
+    public ArrayList<Item>removeAllItemFromShoppingCart(){
+        if(user.getToken().equals("")){
+            System.out.println("User not yet login");
+        }else {
+            user.getShoppingCart().getItemList().clear();
+            return viewShoppingCart();
+        }
+        return  null;
+    }
+
+    public void confirmShoppingCart(User user){
+        if(user.getToken().equals("")){
+            System.out.println("User not login yet");
+        }else {
+            if(user.getShoppingCart()==null){
+                System.out.println("Shopping Cart is empty");
+            }else {
+                long totalAmount=user.getShoppingCart().getItemList().stream().mapToLong(Item::getPrice).sum();
+                if(user.getWallet().getBalance()>=totalAmount){
+                    user.getShoppingCart().getItemList().forEach(c->{
+                        Order order=new Order(user,c.getProduct(),new Date(),c.getQuantity(),c.getPrice(),
+                                StatusOrder.CREATE);
+                        user.getOrderList().add(order);
+                    });
+                }
+                user.setShoppingCart(new ShoppingCart(new Date(),new ArrayList<>()));
+                System.out.println("Action Success");
+            }
+        }
+    }
+
+    public ArrayList<OrderResponse> viewOrderList(){
+        if(!admin.getToken().equals("")){
+            System.out.println("Admin not login yet");
+        }else {
+            ArrayList<OrderResponse> orderResponseList=new ArrayList<>();
+            userList.forEach(u->{
+                u.getOrderList().forEach(o->{
+                    if(o.getStatusOrder()==StatusOrder.CREATE){
+                        OrderResponse response=new OrderResponse(getNextCountValue(),u.getUsername(),u.getPhone(),
+                                u.getEmail(),o.getProduct().getName(), o.getCreateDate(),o.getQty(),o.getTotalAmount()
+                                ,o.getProduct().getSeller().getCompanyName(),o.getProduct().getSeller().getPhone(),o.getStatusOrder());
+                        orderResponseList.add(response);
+                    }
+                });
+            });
+            return orderResponseList;
+        }
+        return null;
+    }
+
+    public void confirmOrderUserByAdmin(String username,String productName){
+        if(!admin.getToken().equals("")){
+            System.out.println("Admin not login yet");
+        }else{
+            //Optional<User> user=userList.stream().filter()
+        }
+    }
+
+
+
+}
