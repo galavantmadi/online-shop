@@ -428,7 +428,21 @@ public class ShopService {
         if(!admin.getToken().equals("")){
             System.out.println("Admin not login yet");
         }else{
-            //Optional<User> user=userList.stream().filter()
+            Optional<User> user=userList.stream().filter(c->c.getUsername().equals(username)).findAny();
+            user.ifPresent(user1 -> user1.getOrderList().forEach(c -> {
+                if (c.getProduct().getName().equals(productName)) {
+                    c.setStatusOrder(StatusOrder.CONFIRM);
+                    user1.getWallet().setBalance(user1.getWallet().getBalance() - c.getTotalAmount());
+                    Optional<Product> product = productList.stream().filter(d -> d.getName().equals(c.getProduct().getName()) &&
+                            d.getSeller().equals(c.getProduct().getSeller())).findAny();
+                    product.ifPresent(value -> sellerList.forEach(s -> {
+                        if (s.equals(value.getSeller())) {
+                            s.getWallet().setBalance((c.getTotalAmount() * 90) / 100);
+                        }
+                    }));
+                    shopList.get(0).setTotalProfit(shopList.get(0).getTotalProfit() + (c.getTotalAmount() * 10) / 100);
+                }
+            }));
         }
     }
 
