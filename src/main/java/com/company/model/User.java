@@ -3,7 +3,7 @@ package com.company.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User extends SuperUser{
+public class User extends SuperUser {
 
     private String email;
     private String address;
@@ -80,6 +80,9 @@ public class User extends SuperUser{
         this.shoppingCart = shoppingCart;
         this.orderList = orderList;
         this.productList = productList;
+    }
+
+    public User() {
     }
 
     @Override

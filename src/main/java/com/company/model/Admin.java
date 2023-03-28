@@ -1,9 +1,6 @@
 package com.company.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Admin extends SuperUser{
+public class Admin extends SuperUser {
     private String email;
 
 

@@ -38,7 +38,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loginBTN.setOnKeyPressed(s->{
-            //root.setStyle("-fx-background-color: red");
+
             try {
                 checkLogin();
             } catch (IOException e) {
@@ -46,7 +46,7 @@ public class LoginController implements Initializable {
             }
         });
         loginBTN.setOnAction(s->{
-            //root.setStyle("-fx-background-color: red");
+
             try {
                 checkLogin();
             } catch (IOException e) {
@@ -57,16 +57,13 @@ public class LoginController implements Initializable {
 
     private void checkLogin() throws IOException {
 
+
         if(Main.admin.getUsername().equals(usernameField.getText()) && Main.admin.getPassword().equals(passField.getText())){
-            AdminPageController adminPageController=new AdminPageController();
-
             root.getScene().getWindow().hide();
-
-            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("AdminPage.fxml"));
-            Parent parent =loader.load();
+            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("AdminPage2.fxml"));
+            Parent  parent =loader.load();
 
             Stage stage=new Stage();
-            //stage.setScene(new Scene( parent));
             stage.setScene(new Scene(loader.getRoot()));
             stage.show();
         }else {
@@ -75,8 +72,5 @@ public class LoginController implements Initializable {
         }
     }
 
-    /*public void loginHandler(ActionEvent event){
-        root.setStyle("-fx-background-color: red");
-    }*/
 
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.AddSellerPageController">
+    <children>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="135.0" prefWidth="100.0" spacing="15.0">
+                    <children>
+                        <Label text="Username : ">
+                     <VBox.margin>
+                        <Insets left="22.0" />
+                     </VBox.margin></Label>
+                        <Label text="Password : ">
+                            <VBox.margin>
+                                <Insets left="27.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label text="Phone : ">
+                            <VBox.margin>
+                                <Insets left="48.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label text="Company Name :">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Label>
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="165.0" prefWidth="156.0" spacing="10.0">
+                    <children>
+                        <TextField fx:id="usernameTXT" />
+                        <TextField fx:id="passTXT" />
+                        <TextField fx:id="phoneTXT" />
+                        <TextField fx:id="companyTXT" />
+                    </children>
+                    <padding>
+                        <Insets top="5.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
+        <VBox alignment="CENTER" prefHeight="59.0" prefWidth="342.0" spacing="5.0">
+            <children>
+                <Button fx:id="addBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Add">
+                    <VBox.margin>
+                        <Insets left="100.0" />
+                    </VBox.margin>
+                </Button>
+                <Label fx:id="resultLBL" prefHeight="17.0" prefWidth="152.0">
+                    <VBox.margin>
+                        <Insets left="100.0" />
+                    </VBox.margin>
+                </Label>
+            </children>
+        </VBox>
+    </children>
+</VBox>

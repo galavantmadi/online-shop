@@ -1,9 +1,8 @@
 package com.company.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Seller extends SuperUser{
+public class Seller extends SuperUser {
     private String companyName;
     private Wallet wallet;
     private ArrayList<Product> productList;
@@ -45,6 +44,9 @@ public class Seller extends SuperUser{
         this.companyName = companyName;
         this.wallet = wallet;
         this.productList = productList;
+    }
+
+    public Seller() {
     }
 
     @Override

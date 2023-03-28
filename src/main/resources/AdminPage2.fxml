@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane fx:id="rootId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.AdminPageController" >
+    <right>
+        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="200.0" spacing="20.0">
+                    <children>
+                        <Hyperlink fx:id="adminListLNK" text="لیست کاربران">
+                            <VBox.margin>
+                                <Insets top="20.0" />
+                            </VBox.margin>
+                        </Hyperlink>
+                        <Hyperlink fx:id="sellerListLNK" text="لیست فروشندگان" />
+                        <Hyperlink fx:id="customerListLNK" text="لیست خریداران" />
+                        <Button fx:id="existBTN" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="بازگشت" />
+                    </children></VBox>
+            </children>
+        </Pane>
+    </right>
+    <center>
+        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F90022;" BorderPane.alignment="CENTER" />
+    </center>
+</BorderPane>

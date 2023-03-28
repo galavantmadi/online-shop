@@ -89,6 +89,9 @@ public abstract class SuperUser {
         this.token = token;
     }
 
+    public SuperUser() {
+    }
+
     public abstract void crate();
     public abstract void login();
 }

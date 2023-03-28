@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.SellerListController">
+    <right>
+        <VBox alignment="TOP_CENTER" prefHeight="412.0" prefWidth="147.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="addBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="درج" />
+                <Button fx:id="removeBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="حذف" />
+                <Button fx:id="existBTN" mnemonicParsing="false" text="بازگشت" />
+            </children>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+            <padding>
+                <Insets top="20.0" />
+            </padding>
+        </VBox>
+    </right>
+    <center>
+        <TableView fx:id="sellerListTBL" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <columns>
+
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

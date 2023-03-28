@@ -131,19 +131,21 @@ public class ShopService {
 
     public Optional<User> searchUser(String username){
         return userList.stream().filter(c->c.getUsername().equals(username)
-        && c.getAccountType()==AccountType.USER).findAny();
+        && c.getAccountType()== AccountType.USER).findAny();
     }
 
-    public void createUser(String username,String password,String phone,String email,String address){
+    public String createUser(String username,String password,String phone,String email,String address){
         Optional<User> user=searchUser(username);
         if(!user.isPresent()){
-            User newUser=new User(username,password,phone, AccountType.USER,true,"",
+            int count=adminList.size();
+            User newUser=new User(count+1,username,password,phone, AccountType.USER,true,"",
                     email,address,new Wallet(WalletType.USER,0),new ShoppingCart(new Date(),new ArrayList<>()),
                     new ArrayList<>(),new ArrayList<>());
             userList.add(newUser);
             newUser.crate();
+            return "Success";
         }else {
-            System.out.println("Username is Already Exist");
+            return "Username is Already Exist ";
         }
     }
 
@@ -166,17 +168,19 @@ public class ShopService {
 
     public Optional<Admin> searchAdmin(String username){
         return  adminList.stream().filter(c->c.getUsername().equals(username)
-        && c.getAccountType()==AccountType.ADMIN).findAny();
+        && c.getAccountType()== AccountType.ADMIN).findAny();
     }
 
-    public void createAdmin(String username,String password,String phone,String email){
+    public String createAdmin(String username,String password,String phone,String email){
         Optional<Admin> admin= searchAdmin(username);
         if(!admin.isPresent()){
-            Admin newAdmin=new Admin(username,password,phone,AccountType.ADMIN,true,"",email);
+            int count=adminList.size();
+            Admin newAdmin=new Admin(count+1,username,password,phone, AccountType.ADMIN,true,"",email);
             adminList.add(newAdmin);
             newAdmin.crate();
+            return "Success";
         }else {
-            System.out.println("Username is Already Exist ");
+           return "Username is Already Exist ";
         }
     }
 
@@ -196,18 +200,20 @@ public class ShopService {
 
     public Optional<Seller> searchSeller(String username){
         return sellerList.stream().filter(c->c.getUsername().equals(username)
-                && c.getAccountType()==AccountType.SELLER).findAny();
+                && c.getAccountType()== AccountType.SELLER).findAny();
     }
 
-    public void createSeller(String username,String password,String phone,String companyName){
+    public String createSeller(String username,String password,String phone,String companyName){
         Optional<Seller> seller= searchSeller(username);
         if(!seller.isPresent()){
-            Seller newSeller=new Seller(username,password,phone, AccountType.USER,true,"",companyName,
+            int count=sellerList.size();
+            Seller newSeller=new Seller(count+1,username,password,phone, AccountType.SELLER,true,"",companyName,
                     new Wallet(WalletType.SELLER,0),new ArrayList<>());
             sellerList.add(newSeller);
             newSeller.crate();
+            return "Success";
         }else {
-            System.out.println("Username is Already Exist ");
+            return "Username is Already Exist ";
         }
     }
 
@@ -226,9 +232,9 @@ public class ShopService {
         });
     }
 
-    public boolean login(String username, String password,AccountType accountType) {
+    public boolean login(String username, String password, AccountType accountType) {
         // Implement login logic here
-        if(accountType==AccountType.USER){
+        if(accountType== AccountType.USER){
             Optional<User> user =searchUser(username);
             if(user.isPresent() && user.get().getPassword().equals(password)){
                 user.get().setToken("Ub32587DA");
@@ -239,7 +245,7 @@ public class ShopService {
                 return false;
 
             }
-        }else if(accountType==AccountType.ADMIN){
+        }else if(accountType== AccountType.ADMIN){
             Optional<Admin> admin =searchAdmin(username);
             if(admin.isPresent() && admin.get().getPassword().equals(password)){
                 admin.get().setToken("Ab32587DA");
@@ -274,16 +280,16 @@ public class ShopService {
         return userList;
     }
 
-    public void createChargeWallet(User user,long amount){
+    public void createChargeWallet(User user, long amount){
         int count=requestWalletChargeArrayList.size();
-        RequestWalletCharge charge=new RequestWalletCharge(count+1,user,new Date(),amount,Status.CREATE);
+        RequestWalletCharge charge=new RequestWalletCharge(count+1,user,new Date(),amount, Status.CREATE);
         requestWalletChargeArrayList.add(charge);
     }
 
     public void acceptListChargeWallet(RequestWalletCharge request){
         if(!admin.getToken().equals("")){
             if(requestWalletChargeArrayList.stream()
-                .anyMatch(f->f.getId()==request.getId() && f.getStatus()==Status.DONE)){
+                .anyMatch(f->f.getId()==request.getId() && f.getStatus()== Status.DONE)){
                 System.out.println("Request for charge amount wallet has been done");
             }
             requestWalletChargeArrayList.forEach(c->{
@@ -320,7 +326,7 @@ public class ShopService {
         return null;
     }
 
-    public ArrayList<Item> createShoppingCart(Product product,int qty){
+    public ArrayList<Item> createShoppingCart(Product product, int qty){
         if(user.getToken().equals("")){
             System.out.println("User not yet login");
         }else {
@@ -411,7 +417,7 @@ public class ShopService {
             ArrayList<OrderResponse> orderResponseList=new ArrayList<>();
             userList.forEach(u->{
                 u.getOrderList().forEach(o->{
-                    if(o.getStatusOrder()==StatusOrder.CREATE){
+                    if(o.getStatusOrder()== StatusOrder.CREATE){
                         OrderResponse response=new OrderResponse(getNextCountValue(),u.getUsername(),u.getPhone(),
                                 u.getEmail(),o.getProduct().getName(), o.getCreateDate(),o.getQty(),o.getTotalAmount()
                                 ,o.getProduct().getSeller().getCompanyName(),o.getProduct().getSeller().getPhone(),o.getStatusOrder());
@@ -446,6 +452,18 @@ public class ShopService {
         }
     }
 
-
-
+    public ShopService(ArrayList<User> userList, ArrayList<Shop> shopList, ArrayList<Admin> adminList, ArrayList<Seller> sellerList,
+                       ArrayList<Product> productList, ArrayList<Category> categoryList, ArrayList<RequestWalletCharge> requestWalletChargeArrayList,
+                       User user, Admin admin, Seller seller) {
+        this.userList = userList;
+        this.shopList = shopList;
+        this.adminList = adminList;
+        this.sellerList = sellerList;
+        this.productList = productList;
+        this.categoryList = categoryList;
+        this.requestWalletChargeArrayList = requestWalletChargeArrayList;
+        this.user = user;
+        this.admin = admin;
+        this.seller = seller;
+    }
 }

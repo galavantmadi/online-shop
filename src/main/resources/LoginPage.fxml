@@ -29,19 +29,22 @@
             <Insets left="-10.0" />
          </padding>
       </HBox>
-      <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="270.0" spacing="8.0">
+      <VBox alignment="CENTER" prefHeight="59.0" prefWidth="270.0" spacing="8.0">
          <children>
-            <Button fx:id="loginBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" text="Login">
+            <Button fx:id="loginBTN" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" text="Login">
                <VBox.margin>
                   <Insets left="127.0" />
                </VBox.margin>
             </Button>
-            <Label alignment="CENTER" text="" fx:id="resultLBL">
+            <Label fx:id="resultLBL" alignment="CENTER" text="">
                <VBox.margin>
                   <Insets left="130.0" />
                </VBox.margin>
             </Label>
          </children>
+         <padding>
+            <Insets right="70.0" />
+         </padding>
       </VBox>
    </children>
 </VBox>
