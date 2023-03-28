@@ -27,6 +27,9 @@ public class AdminPageController implements Initializable {
     private Hyperlink customerListLNK;
 
     @FXML
+    private Hyperlink categoryListLNK;
+
+    @FXML
     private Button existBTN;
 
     @FXML
@@ -90,6 +93,21 @@ public class AdminPageController implements Initializable {
             Stage stage=new Stage();
             stage.setScene(new Scene(loader.getRoot()));
             stage.setTitle("صفحه خریداران");
+            stage.show();
+        });
+
+        categoryListLNK.setOnAction(s->{
+            rootId.getScene().getWindow().hide();
+            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("CategoryListPage.fxml"));
+            try {
+                Parent parent =loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            Stage stage=new Stage();
+            stage.setScene(new Scene(loader.getRoot()));
+            stage.setTitle("صفحه دسته بندی ها");
             stage.show();
         });
     }

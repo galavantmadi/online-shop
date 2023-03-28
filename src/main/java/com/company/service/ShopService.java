@@ -1,6 +1,7 @@
 package com.company.service;
 
 
+import com.company.Main;
 import com.company.model.*;
 import com.company.model.response.OrderResponse;
 
@@ -130,8 +131,11 @@ public class ShopService {
     }
 
     public Optional<User> searchUser(String username){
+        return userList.stream().filter(c->c.getUsername().equals(username)).findAny();
+    }
+    public Optional<User> searchUserByPass(String username,String pass){
         return userList.stream().filter(c->c.getUsername().equals(username)
-        && c.getAccountType()== AccountType.USER).findAny();
+        && c.getPassword().equals(pass)).findAny();
     }
 
     public String createUser(String username,String password,String phone,String email,String address){
@@ -167,8 +171,11 @@ public class ShopService {
     }
 
     public Optional<Admin> searchAdmin(String username){
+        return  adminList.stream().filter(c->c.getUsername().equals(username)).findAny();
+    }
+    public Optional<Admin> searchAdminByPass(String username,String pass){
         return  adminList.stream().filter(c->c.getUsername().equals(username)
-        && c.getAccountType()== AccountType.ADMIN).findAny();
+        && c.getPassword().equals(pass)).findAny();
     }
 
     public String createAdmin(String username,String password,String phone,String email){
@@ -199,8 +206,12 @@ public class ShopService {
     }
 
     public Optional<Seller> searchSeller(String username){
+        return sellerList.stream().filter(c->c.getUsername().equals(username)).findAny();
+    }
+
+    public Optional<Seller> searchSellerByPass(String username,String pass){
         return sellerList.stream().filter(c->c.getUsername().equals(username)
-                && c.getAccountType()== AccountType.SELLER).findAny();
+        && c.getPassword().equals(pass)).findAny();
     }
 
     public String createSeller(String username,String password,String phone,String companyName){
@@ -232,43 +243,27 @@ public class ShopService {
         });
     }
 
-    public boolean login(String username, String password, AccountType accountType) {
+    public AccountType login(String username, String password) {
         // Implement login logic here
-        if(accountType== AccountType.USER){
-            Optional<User> user =searchUser(username);
-            if(user.isPresent() && user.get().getPassword().equals(password)){
-                user.get().setToken("Ub32587DA");
-                user.get().login();
-                return true;
-
-            }else {
-                return false;
-
-            }
-        }else if(accountType== AccountType.ADMIN){
-            Optional<Admin> admin =searchAdmin(username);
-            if(admin.isPresent() && admin.get().getPassword().equals(password)){
-                admin.get().setToken("Ab32587DA");
-                admin.get().login();
-                return true;
-
-            }else {
-                return false;
-
-            }
-        }else {
-            Optional<Seller> seller =searchSeller(username);
-            if(seller.isPresent() && seller.get().getPassword().equals(password)){
-                seller.get().setToken("Sb32587DA");
-                seller.get().login();
-                return true;
-
-            }else {
-                return false;
-
-            }
+        Optional<User> user = searchUserByPass(username,password);
+        Optional<Admin> admin = searchAdminByPass(username,password);
+        Optional<Seller> seller = searchSellerByPass(username,password);
+        if(user.isPresent()){
+            user.get().setToken("Ub32587DA");
+            user.get().login();
+            return AccountType.USER;
+        }else if(admin.isPresent()){
+            admin.get().setToken("Ab32587DA");
+            admin.get().login();
+            return AccountType.ADMIN;
+        }else if(seller.isPresent()){
+            seller.get().setToken("Sb32587DA");
+            seller.get().login();
+            Main.shopService.setSeller(seller.get());
+            return AccountType.SELLER;
         }
 
+        return AccountType.NONE;
     }
 
     public List<Product> searchProductByCategory(String title){
@@ -306,13 +301,17 @@ public class ShopService {
         }
     }
 
-    public void createCategory(String title){
+    public String createCategory(String title){
         if (admin.getToken().equals("")) {
             System.out.println("Admin not yet login");
+            return "Admin not yet login";
         }else {
             int count=categoryList.size();
             if(categoryList.stream().noneMatch(c->c.getTitle().equals(title))){
                 categoryList.add(new Category(count+1,title));
+                return "Success";
+            }else {
+                return "Title is Already Exist ";
             }
         }
     }

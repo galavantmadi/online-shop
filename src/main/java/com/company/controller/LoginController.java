@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import com.company.Main;
+import com.company.model.AccountType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -57,8 +58,8 @@ public class LoginController implements Initializable {
 
     private void checkLogin() throws IOException {
 
-
-        if(Main.admin.getUsername().equals(usernameField.getText()) && Main.admin.getPassword().equals(passField.getText())){
+        AccountType accountType=Main.shopService.login(usernameField.getText(),passField.getText());
+        if(accountType==AccountType.ADMIN){
             root.getScene().getWindow().hide();
             FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("AdminPage2.fxml"));
             Parent  parent =loader.load();
@@ -66,7 +67,16 @@ public class LoginController implements Initializable {
             Stage stage=new Stage();
             stage.setScene(new Scene(loader.getRoot()));
             stage.show();
-        }else {
+        }else if(accountType==AccountType.SELLER){
+            root.getScene().getWindow().hide();
+            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("SellerPage.fxml"));
+            Parent  parent =loader.load();
+
+            Stage stage=new Stage();
+            stage.setScene(new Scene(loader.getRoot()));
+            stage.show();
+        }
+        else {
             resultLBL.setTextFill(Color.RED);
             resultLBL.setText("Not Valid");
         }

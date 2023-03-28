@@ -30,7 +30,7 @@
                                 <Insets left="25.0" />
                             </VBox.margin>
                         </Label>
-                  <Label text="Address : " />
+                        <Label text="Address : " />
                     </children>
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="165.0" prefWidth="156.0" spacing="10.0">
@@ -39,7 +39,7 @@
                         <TextField fx:id="passTXT" />
                         <TextField fx:id="phoneTXT" />
                         <TextField fx:id="emailTXT" />
-                  <TextField fx:id="addressTXT" />
+                        <TextField fx:id="addressTXT" />
                     </children>
                     <padding>
                         <Insets top="5.0" />

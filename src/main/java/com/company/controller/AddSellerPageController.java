@@ -66,6 +66,7 @@ public class AddSellerPageController implements Initializable {
         String phone=phoneTXT.getText();
         String company=companyTXT.getText();
 
+
         Seller seller=new Seller(getNextCountValue(),username,password,phone, AccountType.SELLER,true,"",company,new Wallet(WalletType.SELLER,0)
                 ,new ArrayList<>());
         String result=sellerListController.addSellerToTable(seller);

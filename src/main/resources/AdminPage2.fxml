@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane fx:id="rootId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.AdminPageController" >
+<BorderPane fx:id="rootId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.AdminPageController">
     <right>
         <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
@@ -21,6 +21,7 @@
                         </Hyperlink>
                         <Hyperlink fx:id="sellerListLNK" text="لیست فروشندگان" />
                         <Hyperlink fx:id="customerListLNK" text="لیست خریداران" />
+                  <Hyperlink fx:id="categoryListLNK" text="لیست دسته بندی" />
                         <Button fx:id="existBTN" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="بازگشت" />
                     </children></VBox>
             </children>
