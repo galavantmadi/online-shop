@@ -36,6 +36,17 @@ public class LoginController implements Initializable {
     @FXML
     private Label resultLBL;
 
+    Stage stage;
+    private MainPageController mainPageController;
+
+    public void setStage() {
+        stage = (Stage) root.getScene().getWindow();
+    }
+
+    public void setMainPageController(MainPageController mainPageController) {
+        this.mainPageController = mainPageController;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loginBTN.setOnKeyPressed(s->{
@@ -58,8 +69,8 @@ public class LoginController implements Initializable {
 
     private void checkLogin() throws IOException {
 
-        AccountType accountType=Main.shopService.login(usernameField.getText(),passField.getText());
-        if(accountType==AccountType.ADMIN){
+        AccountType accountType= Main.shopService.login(usernameField.getText(),passField.getText());
+        if(accountType== AccountType.ADMIN){
             root.getScene().getWindow().hide();
             FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("AdminPage2.fxml"));
             Parent  parent =loader.load();
@@ -67,9 +78,20 @@ public class LoginController implements Initializable {
             Stage stage=new Stage();
             stage.setScene(new Scene(loader.getRoot()));
             stage.show();
-        }else if(accountType==AccountType.SELLER){
+        }else if(accountType== AccountType.SELLER){
             root.getScene().getWindow().hide();
             FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("SellerPage.fxml"));
+            Parent  parent =loader.load();
+
+            Stage stage=new Stage();
+            stage.setScene(new Scene(loader.getRoot()));
+            stage.show();
+        }
+        else if(accountType== AccountType.USER){
+            root.getScene().getWindow().hide();
+            mainPageController.init();
+
+            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("MainPage.fxml"));
             Parent  parent =loader.load();
 
             Stage stage=new Stage();

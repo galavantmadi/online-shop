@@ -48,6 +48,17 @@ public class AddCustomerPageController implements Initializable {
     @FXML
     private Button addBTN;
 
+    Stage stage;
+    private MainPageController mainPageController;
+
+    public void setStage() {
+        stage = (Stage) root.getScene().getWindow();
+    }
+
+    public void setMainPageController(MainPageController mainPageController) {
+        this.mainPageController = mainPageController;
+    }
+
     private static AtomicInteger at = new AtomicInteger(0);
     public int getNextCountValue() {
         return at.incrementAndGet();
@@ -70,6 +81,7 @@ public class AddCustomerPageController implements Initializable {
             resultLBL.setTextFill(Color.RED);
         }else {
             root.getScene().getWindow().hide();
+            mainPageController.init();
             FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("MainPage.fxml"));
             try {
                 Parent parent =loader.load();
@@ -86,6 +98,9 @@ public class AddCustomerPageController implements Initializable {
 
     public String createUser(User user){
         String strValue= Main.shopService.createUser(user.getUsername(),user.getPassword(),user.getPhone(),user.getEmail(),user.getAddress());
+        if(strValue.equals("Success")){
+            Main.shopService.login(user.getUsername(),user.getPassword());
+        }
         return strValue;
     }
 

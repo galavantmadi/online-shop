@@ -133,7 +133,7 @@ public class ShopService {
     public Optional<User> searchUser(String username){
         return userList.stream().filter(c->c.getUsername().equals(username)).findAny();
     }
-    public Optional<User> searchUserByPass(String username,String pass){
+    public Optional<User> searchUserByPass(String username, String pass){
         return userList.stream().filter(c->c.getUsername().equals(username)
         && c.getPassword().equals(pass)).findAny();
     }
@@ -173,7 +173,7 @@ public class ShopService {
     public Optional<Admin> searchAdmin(String username){
         return  adminList.stream().filter(c->c.getUsername().equals(username)).findAny();
     }
-    public Optional<Admin> searchAdminByPass(String username,String pass){
+    public Optional<Admin> searchAdminByPass(String username, String pass){
         return  adminList.stream().filter(c->c.getUsername().equals(username)
         && c.getPassword().equals(pass)).findAny();
     }
@@ -209,7 +209,7 @@ public class ShopService {
         return sellerList.stream().filter(c->c.getUsername().equals(username)).findAny();
     }
 
-    public Optional<Seller> searchSellerByPass(String username,String pass){
+    public Optional<Seller> searchSellerByPass(String username, String pass){
         return sellerList.stream().filter(c->c.getUsername().equals(username)
         && c.getPassword().equals(pass)).findAny();
     }
@@ -251,10 +251,12 @@ public class ShopService {
         if(user.isPresent()){
             user.get().setToken("Ub32587DA");
             user.get().login();
+            Main.shopService.setUser(user.get());
             return AccountType.USER;
         }else if(admin.isPresent()){
             admin.get().setToken("Ab32587DA");
             admin.get().login();
+            Main.shopService.setAdmin(admin.get());
             return AccountType.ADMIN;
         }else if(seller.isPresent()){
             seller.get().setToken("Sb32587DA");
@@ -448,6 +450,29 @@ public class ShopService {
                     shopList.get(0).setTotalProfit(shopList.get(0).getTotalProfit() + (c.getTotalAmount() * 10) / 100);
                 }
             }));
+        }
+    }
+
+    public Optional<Product> searchProductByTitleAndCategory(Product product){
+        return  productList.stream().filter(c->c.getName().equals(product.getName()) &&
+                c.getSeller().getCompanyName().equals(product.getSeller().getCompanyName())&&
+                c.getCategory().getTitle().equals(product.getCategory().getTitle())).findAny();
+    }
+
+    public String createProduct(Product product){
+        Optional<Product> optionalProduct=searchProductByTitleAndCategory(product);
+        if(!optionalProduct.isPresent()){
+            productList.add(product);
+            seller.getProductList().add(product);
+            /*sellerList.forEach(c->{
+                if(c.getUsername().equals(product.getSeller().getUsername())
+                && c.getCompanyName().equals(product.getSeller().getCompanyName())){
+                    c.getProductList().add(product);
+                }
+            });*/
+            return "Success";
+        }else {
+            return "Product is Already Exist ";
         }
     }
 

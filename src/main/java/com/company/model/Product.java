@@ -75,4 +75,15 @@ public class Product {
     public void setSeller(Seller seller) {
         this.seller = seller;
     }
+
+    public Product(int id, String name, int quantity, int price, List<String> comments, String additionalData, Category category, Seller seller) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.comments = comments;
+        this.additionalData = additionalData;
+        this.category = category;
+        this.seller = seller;
+    }
 }

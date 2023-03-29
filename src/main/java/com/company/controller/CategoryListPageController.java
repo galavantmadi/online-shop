@@ -3,7 +3,6 @@ package com.company.controller;
 
 import com.company.Main;
 import com.company.model.Category;
-import com.company.model.Seller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,7 +17,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CategoryListPageController implements Initializable {

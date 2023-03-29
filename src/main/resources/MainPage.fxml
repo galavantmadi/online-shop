@@ -8,10 +8,11 @@
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.MainPageController">
    <top>
-      <Pane prefHeight="60.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="54.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Hyperlink fx:id="registerLNK" layoutX="14.0" layoutY="19.0" text="ثبت نام" />
             <Hyperlink fx:id="enterLNK" layoutX="77.0" layoutY="19.0" text="ورود" />
+            <Label fx:id="lblUser" layoutX="13.0" layoutY="22.0" prefHeight="21.0" prefWidth="162.0" text="gbgccb" />
          </children>
       </Pane>
    </top>

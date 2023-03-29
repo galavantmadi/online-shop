@@ -1,21 +1,18 @@
 package com.company.controller;
 
-import com.company.Main;
-import com.company.model.*;
-import javafx.fxml.Initializable;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicInteger;
-
+import com.company.model.Category;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AddCategoryPageController implements Initializable {
 

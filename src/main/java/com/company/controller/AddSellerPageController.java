@@ -65,9 +65,9 @@ public class AddSellerPageController implements Initializable {
         String password=passTXT.getText();
         String phone=phoneTXT.getText();
         String company=companyTXT.getText();
+        int count= Main.shopService.getProductList().size();
 
-
-        Seller seller=new Seller(getNextCountValue(),username,password,phone, AccountType.SELLER,true,"",company,new Wallet(WalletType.SELLER,0)
+        Seller seller=new Seller(count+1,username,password,phone, AccountType.SELLER,true,"",company,new Wallet(WalletType.SELLER,0)
                 ,new ArrayList<>());
         String result=sellerListController.addSellerToTable(seller);
         if(result.equals("Success")){
