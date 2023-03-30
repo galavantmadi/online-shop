@@ -12,7 +12,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -152,10 +154,35 @@ public class MainPageController implements Initializable {
         private final Label title = new Label();
         private final Label detail = new Label();
         private final VBox layout = new VBox(title, detail);
+        private final Hyperlink viewLNK=new Hyperlink("نمایش");
+        private final HBox hBox=new HBox(layout,viewLNK);
+        private MainPageController MainPageController;
+
 
         public ProductListCell() {
             super();
-            title.setStyle("-fx-font-size: 20px;");
+            title.setStyle("-fx-font-size: 15px;");
+            hBox.setSpacing(10);
+            viewLNK.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    //root.getScene().getWindow().hide();
+                    FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("LoginPage.fxml"));
+                    try {
+                        Parent parent =loader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    Stage stage=new Stage();
+                    stage.setScene(new Scene(loader.getRoot()));
+                    LoginController controller = loader.<LoginController>getController();
+                    controller.setStage();
+                    controller.setMainPageController(MainPageController);
+
+                    stage.show();
+                }
+            });
         }
 
         @Override
@@ -169,9 +196,9 @@ public class MainPageController implements Initializable {
                 setGraphic(null);
             } else {
                 title.setText(item.getName());
-                detail.setText(item.getPrice()+" "+item.getSeller().getCompanyName());
+                detail.setText(item.getPrice()+" تومان ");
 
-                setGraphic(layout);
+                setGraphic(hBox);
             }
         }
     }

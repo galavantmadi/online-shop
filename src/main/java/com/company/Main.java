@@ -16,9 +16,12 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
+        //Admin
         admin=new Admin(1,"peyman","123","09391120290", AccountType.ADMIN,true,"","peyman@.com");
         ArrayList<Admin> admins=new ArrayList<>();
         admins.add(admin);
+
+        //Category
         Category category=new Category(1,"کالای دیجیتال");
         Category category2=new Category(2,"موبایل");
         Category category3=new Category(3,"مد و پوشاک");
@@ -41,8 +44,36 @@ public class Main extends Application {
         categories.add(category9);
         categories.add(category10);
 
-        shopService=new ShopService(new ArrayList<>(),new ArrayList<>(),admins,new ArrayList<>()
-                ,new ArrayList<>(),categories,new ArrayList<>(),new User(),admin,new Seller());
+        //Seller
+        Seller seller=new Seller(1,"seller1","123","88223348",AccountType.SELLER
+        ,true,"","سینداد مارکت",new Wallet(WalletType.SELLER,0)
+                ,new ArrayList<>());
+
+        ArrayList<Seller> sellers=new ArrayList<>();
+        sellers.add(seller);
+
+        //Product
+
+        Product product=new Product(1,"ساعت هوشمند 1",100,4000000,new ArrayList<>(),
+                "اطلاعات اضافه برای ساعت هوشمند1",category,seller);
+
+        Product product2=new Product(2,"ساعت هوشمند 2",80,3500000,new ArrayList<>(),
+                "اطلاعات اضافه برای ساعت هوشمند2",category,seller);
+
+        Product product3=new Product(3,"ساعت هوشمند 3",10,40000000,new ArrayList<>(),
+                "اطلاعات اضافه برای ساعت هوشمند3",category,seller);
+
+        Product product4=new Product(4,"ساعت هوشمند 4",9,38000000,new ArrayList<>(),
+                "اطلاعات اضافه برای ساعت هوشمند4",category,seller);
+
+        ArrayList<Product> products=new ArrayList<>();
+        products.add(product);
+        products.add(product2);
+        products.add(product3);
+        products.add(product4);
+
+        shopService=new ShopService(new ArrayList<>(),new ArrayList<>(),admins,sellers
+                ,products,categories,new ArrayList<>(),new User(),admin,new Seller());
 
         launch(args);
 
