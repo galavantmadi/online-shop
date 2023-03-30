@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -7,13 +8,31 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.MainPageController">
-   <top>
-      <Pane prefHeight="54.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Hyperlink fx:id="registerLNK" layoutX="14.0" layoutY="19.0" text="ثبت نام" />
-            <Hyperlink fx:id="enterLNK" layoutX="77.0" layoutY="19.0" text="ورود" />
-            <Label fx:id="lblUser" layoutX="13.0" layoutY="22.0" prefHeight="21.0" prefWidth="162.0" text="gbgccb" />
-         </children>
-      </Pane>
-   </top>
+    <top>
+        <Pane fx:id="topPanelId" prefHeight="54.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Hyperlink fx:id="registerLNK" layoutX="14.0" layoutY="19.0" text="ثبت نام" />
+                <Hyperlink fx:id="enterLNK" layoutX="77.0" layoutY="19.0" text="ورود" />
+                <Label fx:id="lblUser" layoutX="97.0" layoutY="22.0" prefHeight="21.0" prefWidth="78.0" text="user" />
+                <Label fx:id="welcomeLBL" layoutX="20.0" layoutY="24.0" prefHeight="17.0" prefWidth="70.0" text="خوش آمدید" />
+            <Label fx:id="categoryLBL" alignment="CENTER_RIGHT" layoutX="481.0" layoutY="31.0" prefHeight="25.0" prefWidth="119.0" style="-fx-background-color: #EEEEEE;" text="دسته بندی ها" textAlignment="RIGHT">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+
+            </children>
+        </Pane>
+    </top>
+    <right>
+        <ToolBar fx:id="toolbarId" nodeOrientation="RIGHT_TO_LEFT" orientation="VERTICAL" prefHeight="346.0" prefWidth="119.0" BorderPane.alignment="CENTER_LEFT">
+            <items>
+
+            </items>
+        </ToolBar>
+
+    </right>
+   <center>
+      <ListView fx:id="productLSV" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>
