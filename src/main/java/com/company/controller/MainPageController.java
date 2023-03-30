@@ -4,6 +4,9 @@ import com.company.Main;
 import com.company.model.Admin;
 import com.company.model.Product;
 import com.company.model.User;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,12 +16,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,11 +55,13 @@ public class MainPageController implements Initializable {
     private ToolBar toolbarId;
 
     @FXML
-    private ListView productLSV;
+    private ListView<Product> productLSV;
 
     @FXML
     private Label categoryLBL;
-    @FXML private Pane topPanelId;
+
+    @FXML
+    private Pane topPanelId;
 
 
 
@@ -98,6 +105,8 @@ public class MainPageController implements Initializable {
             controller.setMainPageController(this);
             stage.show();
         });
+
+
     }
 
     public void init(){
@@ -133,7 +142,72 @@ public class MainPageController implements Initializable {
 
         loadMAinProduct("");
 
-        productLSV.setCellFactory(param -> new ProductListCell());
+        //productLSV.setCellFactory(param -> new ProductListCell());
+        productLSV.setCellFactory(new Callback<ListView<Product>, ListCell<Product>>() {
+            @Override
+            public ListCell<Product> call(ListView<Product> param) {
+                return new  ListCell<Product>(){
+                    private final Label title = new Label();
+                    private final Label detail = new Label();
+                    private final VBox layout = new VBox(title, detail);
+                  /*  private final Hyperlink viewLNK=new Hyperlink("نمایش");*/
+                   // private final HBox hBox=new HBox(layout);
+
+
+
+                    @Override
+                    protected void updateItem(Product item, boolean empty) {
+                       setOnMouseClicked(event -> {
+                           Main.productSelected=item;
+
+                           FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("ProductViewPage.fxml"));
+                           try {
+                               Parent parent =loader.load();
+                           } catch (IOException e) {
+                               throw new RuntimeException(e);
+                           }
+
+                           Stage stage=new Stage();
+                           stage.setScene(new Scene(loader.getRoot()));
+                           stage.show();
+                       });
+                       //setOnmo
+                        if (empty || item == null || item.getId() == 0) {
+                            title.setText(null);
+                            detail.setText(null);
+                            setGraphic(null);
+                        } else {
+                            title.setText(item.getName());
+                            detail.setText(item.getPrice()+" تومان ");
+                            /*viewLNK.setOnAction(new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent event) {
+
+                                    FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("ProductViewPage.fxml"));
+                                    try {
+                                        Parent parent =loader.load();
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+
+                                    Stage stage=new Stage();
+                                    stage.setScene(new Scene(loader.getRoot()));
+                                    stage.show();
+
+                                }
+                            });*/
+                            setGraphic(layout);
+
+                        }
+                    }
+
+
+                };
+            }
+        });
+
+
+
     }
 
     public void loadMAinProduct(String name){
@@ -150,24 +224,27 @@ public class MainPageController implements Initializable {
         productLSV.getItems().addAll(products);
     }
 
-    private static class ProductListCell extends ListCell<Product>{
+    /*private static class ProductListCell extends ListCell<Product>{
         private final Label title = new Label();
         private final Label detail = new Label();
         private final VBox layout = new VBox(title, detail);
         private final Hyperlink viewLNK=new Hyperlink("نمایش");
         private final HBox hBox=new HBox(layout,viewLNK);
-        private MainPageController MainPageController;
+
+
+
 
 
         public ProductListCell() {
             super();
+
             title.setStyle("-fx-font-size: 15px;");
             hBox.setSpacing(10);
             viewLNK.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     //root.getScene().getWindow().hide();
-                    FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("LoginPage.fxml"));
+                    FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("ProductViewPage.fxml"));
                     try {
                         Parent parent =loader.load();
                     } catch (IOException e) {
@@ -176,9 +253,9 @@ public class MainPageController implements Initializable {
 
                     Stage stage=new Stage();
                     stage.setScene(new Scene(loader.getRoot()));
-                    LoginController controller = loader.<LoginController>getController();
+                    ProductViewPageController controller = loader.<ProductViewPageController>getController();
                     controller.setStage();
-                    controller.setMainPageController(MainPageController);
+                    controller.setMainPageController(mainPageController);
 
                     stage.show();
                 }
@@ -201,5 +278,7 @@ public class MainPageController implements Initializable {
                 setGraphic(hBox);
             }
         }
-    }
+    }*/
+
+
 }

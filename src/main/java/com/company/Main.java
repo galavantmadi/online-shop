@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Main extends Application {
     public static Admin admin;
     public static ShopService shopService;
+    public static Product productSelected;
 
     public static void main(String[] args) {
 
