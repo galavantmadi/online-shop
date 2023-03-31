@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="324.0" prefWidth="422.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.UserEditPageController">
+    <children>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="3.0">
+                    <children>
+                        <TextField fx:id="usernameTXT" />
+                        <TextField fx:id="passTXT" />
+                        <TextField fx:id="phoneTXT" />
+                        <TextField fx:id="emailTXT" />
+                  <TextField fx:id="addressTXT" />
+                  <TextField fx:id="walletTXT" />
+                  <TextField fx:id="incWalletTXT" />
+                    </children>
+                    <HBox.margin>
+                        <Insets left="50.0" />
+                    </HBox.margin>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="179.0" prefWidth="145.0" spacing="10.0">
+                    <children>
+                        <Label alignment="CENTER" text="نام کاربری : ">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" text="رمز عبور : ">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding></Label>
+                        <Label alignment="CENTER" text="تلفن :">
+                            <VBox.margin>
+                                <Insets right="25.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" text="ایمیل : ">
+                            <VBox.margin>
+                                <Insets right="18.0" />
+                            </VBox.margin>
+                        </Label>
+                  <Label text="آدرس : ">
+                     <VBox.margin>
+                        <Insets right="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="کیف پول :">
+                     <VBox.margin>
+                        <Insets right="3.0" />
+                     </VBox.margin></Label>
+                  <Label text="مبل؛ درخواستی :">
+                     <VBox.margin>
+                        <Insets left="30.0" />
+                     </VBox.margin>
+                  </Label>
+                    </children>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </VBox>
+            </children>
+            <padding>
+                <Insets right="30.0" />
+            </padding></HBox>
+        <VBox alignment="CENTER" prefHeight="60.0" prefWidth="384.0">
+            <children>
+                <HBox alignment="CENTER" prefHeight="50.0" prefWidth="384.0" spacing="10.0">
+                    <children>
+                        <Button fx:id="walletBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="افزایش موجودی" />
+                        <Button fx:id="editBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="ثبت تغییرات" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</VBox>

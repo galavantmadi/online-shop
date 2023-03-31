@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.IncreaseWalletUserPageController">
+    <children>
+        <HBox alignment="CENTER" prefHeight="60.0" prefWidth="342.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="60.0" prefWidth="133.0">
+               <children>
+                        <TextField fx:id="amountTXT">
+                     <VBox.margin>
+                        <Insets top="7.0" />
+                     </VBox.margin></TextField>
+               </children>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="60.0" prefWidth="117.0" spacing="10.0">
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="مبلغ درخواستی : ">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin></Label>
+                    </children>
+                    <padding>
+                        <Insets top="5.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
+        <VBox alignment="CENTER" prefHeight="59.0" prefWidth="342.0" spacing="5.0">
+            <children>
+                <Button fx:id="addBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="ثبت تغییرات">
+                    <VBox.margin>
+                        <Insets left="10.0" />
+                    </VBox.margin>
+                </Button>
+                <Label fx:id="resultLBL" prefHeight="17.0" prefWidth="152.0">
+                    <VBox.margin>
+                        <Insets left="100.0" />
+                    </VBox.margin>
+                </Label>
+            </children>
+        </VBox>
+    </children>
+</VBox>

@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Main extends Application {
     public static Admin admin;
@@ -73,7 +74,15 @@ public class Main extends Application {
         products.add(product3);
         products.add(product4);
 
-        shopService=new ShopService(new ArrayList<>(),new ArrayList<>(),admins,sellers
+        //User
+        User user=new User(1,"amir","123","88998877",AccountType.USER,true,"","amir@yahoo.com","address amir"
+                ,new Wallet(WalletType.USER,0),new ShoppingCart(new Date(),new ArrayList<>()),new ArrayList<>()
+                ,new ArrayList<>());
+
+        ArrayList<User> users=new ArrayList<>();
+        users.add(user);
+
+        shopService=new ShopService(users,new ArrayList<>(),admins,sellers
                 ,products,categories,new ArrayList<>(),new User(),admin,new Seller());
 
         launch(args);

@@ -13,7 +13,10 @@
             <children>
                 <Hyperlink fx:id="registerLNK" layoutX="14.0" layoutY="19.0" text="ثبت نام" />
                 <Hyperlink fx:id="enterLNK" layoutX="77.0" layoutY="19.0" text="ورود" />
-                <Label fx:id="lblUser" layoutX="97.0" layoutY="22.0" prefHeight="21.0" prefWidth="78.0" text="user" />
+            <Hyperlink fx:id="userLNK" layoutX="83.0" layoutY="17.0" prefHeight="23.0" prefWidth="91.0" text="user">
+               <font>
+                  <Font size="14.0" />
+               </font></Hyperlink>
                 <Label fx:id="welcomeLBL" layoutX="20.0" layoutY="24.0" prefHeight="17.0" prefWidth="70.0" text="خوش آمدید" />
             <Label fx:id="categoryLBL" alignment="CENTER_RIGHT" layoutX="481.0" layoutY="31.0" prefHeight="25.0" prefWidth="119.0" style="-fx-background-color: #EEEEEE;" text="دسته بندی ها" textAlignment="RIGHT">
                <font>

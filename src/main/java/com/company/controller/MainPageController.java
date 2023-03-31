@@ -46,7 +46,7 @@ public class MainPageController implements Initializable {
     @FXML
     private Hyperlink registerLNK;
     @FXML
-    private Label lblUser;
+    private Hyperlink userLNK;
 
     @FXML
     private Label welcomeLBL;
@@ -106,22 +106,38 @@ public class MainPageController implements Initializable {
             stage.show();
         });
 
+        userLNK.setOnAction(c->{
+            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("UserEditPage.fxml"));
+            try {
+                Parent parent =loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            Stage stage=new Stage();
+            stage.setScene(new Scene(loader.getRoot()));
+            UserEditPageController controller = loader.<UserEditPageController>getController();
+            controller.setStage();
+            controller.setMainPageController(this);
+            stage.show();
+        });
+
 
     }
 
     public void init(){
         categoryLBL.layoutXProperty().bind(topPanelId.widthProperty().subtract(categoryLBL.widthProperty()).divide(1));
         if(Main.shopService.getUser().getId()==0){
-            lblUser.setText("");
-            lblUser.setVisible(false);
+            userLNK.setText("");
+            userLNK.setVisible(false);
             welcomeLBL.setVisible(false);
             enterLNK.setVisible(true);
             registerLNK.setVisible(true);
         }else {
-            lblUser.setText(Main.shopService.getUser().getUsername());
-            lblUser.setVisible(true);
+            userLNK.setText(Main.shopService.getUser().getUsername());
+            userLNK.setVisible(true);
             welcomeLBL.setVisible(true);
-            lblUser.setTextFill(Color.BLUE);
+            userLNK.setTextFill(Color.BLUE);
             welcomeLBL.setTextFill(Color.BLUE);
             enterLNK.setVisible(false);
             registerLNK.setVisible(false);
@@ -179,23 +195,7 @@ public class MainPageController implements Initializable {
                         } else {
                             title.setText(item.getName());
                             detail.setText(item.getPrice()+" تومان ");
-                            /*viewLNK.setOnAction(new EventHandler<ActionEvent>() {
-                                @Override
-                                public void handle(ActionEvent event) {
 
-                                    FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("ProductViewPage.fxml"));
-                                    try {
-                                        Parent parent =loader.load();
-                                    } catch (IOException e) {
-                                        throw new RuntimeException(e);
-                                    }
-
-                                    Stage stage=new Stage();
-                                    stage.setScene(new Scene(loader.getRoot()));
-                                    stage.show();
-
-                                }
-                            });*/
                             setGraphic(layout);
 
                         }
@@ -223,62 +223,5 @@ public class MainPageController implements Initializable {
         // Copies data into the TableView's items list
         productLSV.getItems().addAll(products);
     }
-
-    /*private static class ProductListCell extends ListCell<Product>{
-        private final Label title = new Label();
-        private final Label detail = new Label();
-        private final VBox layout = new VBox(title, detail);
-        private final Hyperlink viewLNK=new Hyperlink("نمایش");
-        private final HBox hBox=new HBox(layout,viewLNK);
-
-
-
-
-
-        public ProductListCell() {
-            super();
-
-            title.setStyle("-fx-font-size: 15px;");
-            hBox.setSpacing(10);
-            viewLNK.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    //root.getScene().getWindow().hide();
-                    FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("ProductViewPage.fxml"));
-                    try {
-                        Parent parent =loader.load();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    Stage stage=new Stage();
-                    stage.setScene(new Scene(loader.getRoot()));
-                    ProductViewPageController controller = loader.<ProductViewPageController>getController();
-                    controller.setStage();
-                    controller.setMainPageController(mainPageController);
-
-                    stage.show();
-                }
-            });
-        }
-
-        @Override
-        protected void updateItem(Product item, boolean empty) {
-            super.updateItem(item, empty);
-            setText(null);
-
-            if (empty || item == null || item.getId() == 0) {
-                title.setText(null);
-                detail.setText(null);
-                setGraphic(null);
-            } else {
-                title.setText(item.getName());
-                detail.setText(item.getPrice()+" تومان ");
-
-                setGraphic(hBox);
-            }
-        }
-    }*/
-
 
 }
