@@ -283,11 +283,12 @@ public class ShopService {
         requestWalletChargeArrayList.add(charge);
     }
 
-    public void acceptListChargeWallet(RequestWalletCharge request){
+    public String acceptListChargeWallet(RequestWalletCharge request){
         if(!admin.getToken().equals("")){
             if(requestWalletChargeArrayList.stream()
                 .anyMatch(f->f.getId()==request.getId() && f.getStatus()== Status.DONE)){
                 System.out.println("Request for charge amount wallet has been done");
+                return "Fail Request";
             }
             requestWalletChargeArrayList.forEach(c->{
                 if(c.getId()==request.getId()){
@@ -298,9 +299,14 @@ public class ShopService {
                         }
                     });
                     System.out.println("Request Charge Success");
+
                 }
             });
+            return "Success";
         }
+        System.out.println("User not login yet");
+        return "Fail Request";
+
     }
 
     public String createCategory(String title){

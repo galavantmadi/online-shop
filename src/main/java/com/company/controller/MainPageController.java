@@ -224,4 +224,13 @@ public class MainPageController implements Initializable {
         productLSV.getItems().addAll(products);
     }
 
+    public void logOut(){
+        Main.shopService.setUser(new User());
+        userLNK.setText("");
+        userLNK.setVisible(false);
+        welcomeLBL.setVisible(false);
+        enterLNK.setVisible(true);
+        registerLNK.setVisible(true);
+    }
+
 }

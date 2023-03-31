@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.Main;
 import com.company.model.RequestWalletCharge;
+import com.company.model.Status;
 import com.company.model.User;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -51,6 +52,12 @@ public class UserEditPageController implements Initializable {
     @FXML
     private TextField emailTXT;
 
+    @FXML
+    private Button existBTN;
+
+    @FXML
+    private Button logOutBTN;
+
     Stage stage;
     private MainPageController mainPageController;
 
@@ -68,7 +75,8 @@ public class UserEditPageController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         User user= Main.shopService.getUser();
         Long amount=Main.shopService.getRequestWalletChargeArrayList()
-                .stream().filter(c->c.getUser().equals(Main.shopService.getUser()))
+                .stream().filter(c->c.getUser().equals(Main.shopService.getUser())
+                && c.getStatus().equals(Status.CREATE))
                 .mapToLong(RequestWalletCharge::getAmount).sum();
         usernameTXT.setText(user.getUsername());
         usernameTXT.setEditable(false);
@@ -108,11 +116,21 @@ public class UserEditPageController implements Initializable {
             stage.show();
         });
 
+        existBTN.setOnAction(c->{
+            root.getScene().getWindow().hide();
+
+        });
+        logOutBTN.setOnAction(c->{
+            mainPageController.logOut();
+            root.getScene().getWindow().hide();
+        });
+
     }
 
-    public void calIncreaseWallet(){
+    public void calcIncreaseWallet(){
         Long amount=Main.shopService.getRequestWalletChargeArrayList()
-                .stream().filter(c->c.getUser().equals(Main.shopService.getUser()))
+                .stream().filter(c->c.getUser().equals(Main.shopService.getUser())
+                && c.getStatus().equals(Status.CREATE))
                 .mapToLong(RequestWalletCharge::getAmount).sum();
         incWalletTXT.setText(String.valueOf(amount));
         incWalletTXT.setEditable(false);

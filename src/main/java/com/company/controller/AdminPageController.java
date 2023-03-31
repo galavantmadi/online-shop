@@ -35,11 +35,14 @@ public class AdminPageController implements Initializable {
     @FXML
     private BorderPane rootId;
 
+    @FXML
+    private Hyperlink walletIncreaseLNK;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         existBTN.setOnAction(s->{
             rootId.getScene().getWindow().hide();
-            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("LoginPage.fxml"));
+            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("MainPage.fxml"));
             try {
                 Parent parent =loader.load();
             } catch (IOException e) {
@@ -108,6 +111,21 @@ public class AdminPageController implements Initializable {
             Stage stage=new Stage();
             stage.setScene(new Scene(loader.getRoot()));
             stage.setTitle("صفحه دسته بندی ها");
+            stage.show();
+        });
+
+        walletIncreaseLNK.setOnAction(c->{
+            rootId.getScene().getWindow().hide();
+            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("RequestIncreaseWalletListPage.fxml"));
+            try {
+                Parent parent =loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            Stage stage=new Stage();
+            stage.setScene(new Scene(loader.getRoot()));
+            stage.setTitle("لیست درخواست های شارژ");
             stage.show();
         });
     }

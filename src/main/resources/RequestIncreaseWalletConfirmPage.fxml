@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.RequestIncreaseWalletConfirmController">
+    <children>
+        <HBox alignment="CENTER" prefHeight="60.0" prefWidth="342.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="60.0" prefWidth="140.0" spacing="3.0">
+               <children>
+                        <TextField fx:id="userTXT" prefHeight="25.0" prefWidth="110.0" />
+                  <TextField fx:id="dateTXT" />
+                  <TextField fx:id="amountTXT" />
+               </children>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="60.0" prefWidth="104.0" spacing="8.0">
+                    <children>
+                        <Label text="نام کاربر :">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin></Label>
+                  <Label text="تاریخ درخواست :" />
+                  <Label text="ملبغ درخواست :" />
+                    </children>
+                    <padding>
+                        <Insets top="5.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
+        <VBox alignment="CENTER" prefHeight="59.0" prefWidth="342.0" spacing="2.0">
+            <children>
+                <Button fx:id="saveBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="ثبت تغییرات">
+                    <VBox.margin>
+                        <Insets left="10.0" />
+                    </VBox.margin>
+                </Button>
+            <Label fx:id="resultLBL" prefHeight="20.0" prefWidth="136.0">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            </children>
+        </VBox>
+    </children>
+</VBox>

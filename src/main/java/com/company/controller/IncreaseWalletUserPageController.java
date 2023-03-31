@@ -43,7 +43,7 @@ public class IncreaseWalletUserPageController implements Initializable {
             Main.shopService.createChargeWallet(Main.shopService.getUser(),Long.parseLong(amountTXT.getText()));
             root.getScene().getWindow().hide();
 
-            userEditPageController.calIncreaseWallet();
+            userEditPageController.calcIncreaseWallet();
         });
     }
 }

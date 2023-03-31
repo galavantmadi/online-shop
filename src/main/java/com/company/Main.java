@@ -82,8 +82,14 @@ public class Main extends Application {
         ArrayList<User> users=new ArrayList<>();
         users.add(user);
 
+        //RequestWalletCharge
+        RequestWalletCharge charge=new RequestWalletCharge(1,user,new Date(),10000000,Status.CREATE);
+        ArrayList<RequestWalletCharge> requestWalletCharges=new ArrayList<>();
+        requestWalletCharges.add(charge);
+
+
         shopService=new ShopService(users,new ArrayList<>(),admins,sellers
-                ,products,categories,new ArrayList<>(),new User(),admin,new Seller());
+                ,products,categories,requestWalletCharges,new User(),admin,new Seller());
 
         launch(args);
 
