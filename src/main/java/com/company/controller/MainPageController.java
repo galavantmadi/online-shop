@@ -1,12 +1,8 @@
 package com.company.controller;
 
 import com.company.Main;
-import com.company.model.Admin;
 import com.company.model.Product;
 import com.company.model.User;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,9 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,8 +22,6 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -62,6 +54,15 @@ public class MainPageController implements Initializable {
 
     @FXML
     private Pane topPanelId;
+
+    @FXML
+    private Label countLBL;
+
+    @FXML
+    private Label showCountLBL;
+
+    @FXML
+    private ImageView imgID;
 
 
 
@@ -107,25 +108,33 @@ public class MainPageController implements Initializable {
         });
 
         userLNK.setOnAction(c->{
-            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("UserEditPage2.fxml"));
-            try {
-                Parent parent =loader.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            loadFXMLUserPage();
+        });
+
+        countLBL.setOnMouseClicked(c->{
+            if(Main.shopService.getUser().getToken()!=null){
+                System.out.println("ppppppppp");
+                loadFXMLUserPageWitSelectedTab();
             }
 
-            Stage stage=new Stage();
-            stage.setScene(new Scene(loader.getRoot()));
-            UserEditPageController controller = loader.<UserEditPageController>getController();
-            controller.setStage();
-            controller.setMainPageController(this);
-            stage.show();
+        });
+        showCountLBL.setOnMouseClicked(c->{
+            if(Main.shopService.getUser().getToken()!=null){
+
+                loadFXMLUserPageWitSelectedTab();
+            }
+        });
+        imgID.setOnMouseClicked(d->{
+            if(Main.shopService.getUser().getToken()!=null){
+                loadFXMLUserPageWitSelectedTab();
+            }
         });
 
 
     }
 
     public void init(){
+        showCountLBL.setTextFill(Color.BLACK);
         categoryLBL.layoutXProperty().bind(topPanelId.widthProperty().subtract(categoryLBL.widthProperty()).divide(1));
         if(Main.shopService.getUser().getId()==0){
             userLNK.setText("");
@@ -148,7 +157,7 @@ public class MainPageController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     Hyperlink source=(Hyperlink) event.getSource();
-                    loadMAinProduct(source.getText());
+                    loadMainProduct(source.getText());
                     System.out.println(source.getText());
                 }
             });
@@ -156,7 +165,7 @@ public class MainPageController implements Initializable {
         });
 
 
-        loadMAinProduct("");
+        loadMainProduct("");
 
         //productLSV.setCellFactory(param -> new ProductListCell());
         productLSV.setCellFactory(new Callback<ListView<Product>, ListCell<Product>>() {
@@ -176,16 +185,7 @@ public class MainPageController implements Initializable {
                        setOnMouseClicked(event -> {
                            Main.productSelected=item;
 
-                           FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("ProductViewPage.fxml"));
-                           try {
-                               Parent parent =loader.load();
-                           } catch (IOException e) {
-                               throw new RuntimeException(e);
-                           }
-
-                           Stage stage=new Stage();
-                           stage.setScene(new Scene(loader.getRoot()));
-                           stage.show();
+                           loadFXML();
                        });
                        //setOnmo
                         if (empty || item == null || item.getId() == 0) {
@@ -210,7 +210,7 @@ public class MainPageController implements Initializable {
 
     }
 
-    public void loadMAinProduct(String name){
+    public void loadMainProduct(String name){
         productLSV.getItems().clear();
         ArrayList<Product> products;
         if(name.equals("")){
@@ -231,6 +231,61 @@ public class MainPageController implements Initializable {
         welcomeLBL.setVisible(false);
         enterLNK.setVisible(true);
         registerLNK.setVisible(true);
+    }
+
+    private void loadFXML() {
+        FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("ProductViewPage.fxml"));
+        try {
+            Parent parent =loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Stage stage=new Stage();
+        stage.setScene(new Scene(loader.getRoot()));
+        ProductViewPageController controller = loader.<ProductViewPageController>getController();
+        controller.setStage();
+        controller.setMainPageController(this);
+        stage.show();
+    }
+
+    private void loadFXMLUserPage(){
+        FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("UserEditPage2.fxml"));
+        try {
+            Parent parent =loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Stage stage=new Stage();
+        stage.setScene(new Scene(loader.getRoot()));
+        UserEditPageController controller = loader.<UserEditPageController>getController();
+        controller.setStage();
+        controller.setMainPageController(this);
+        stage.show();
+    }
+
+    private void loadFXMLUserPageWitSelectedTab(){
+        FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("UserEditPage2.fxml"));
+        try {
+            Parent parent =loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Stage stage=new Stage();
+        stage.setScene(new Scene(loader.getRoot()));
+        UserEditPageController controller = loader.<UserEditPageController>getController();
+        controller.tabSelected();
+        controller.setStage();
+        controller.setMainPageController(this);
+        stage.show();
+    }
+
+    public void countShoppingCart(){
+        countLBL.setText(String.valueOf(Main.shopService.getUser().getShoppingCart().getItemList().size()));
+        countLBL.setTextFill(Color.GREEN);
+        showCountLBL.setTextFill(Color.GREEN);
     }
 
 }

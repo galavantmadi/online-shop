@@ -334,9 +334,12 @@ public class ShopService {
     }
 
     public ArrayList<Item> createShoppingCart(Product product, int qty){
-        if(user.getToken().equals("")){
+        if (user.getToken() == null) {
+            System.out.println("User not yet login");
+        }else if(user.getToken().equals("")){
             System.out.println("User not yet login");
         }else {
+            ArrayList<Item> items=new ArrayList<>();
             if(user.getShoppingCart().getItemList().size()>0){
                 user.getShoppingCart().getItemList().forEach(c->{
                     if(c.getProduct().getName().equals(product.getName())){
@@ -348,16 +351,21 @@ public class ShopService {
                         }
                     }else {
                         if(product.getQuantity()>=qty){
-                            Item item=new Item(product,qty,product.getPrice()*qty);
-                            user.getShoppingCart().getItemList().add(item);
+                            int count=user.getShoppingCart().getItemList().size();
+                            Item item=new Item(count+1,product,qty,product.getPrice()*qty);
+                            items.add(item);
                         }else {
                             System.out.println("Quantity for product not valid");
                         }
                     }
                 });
+                items.forEach(d->{
+                    user.getShoppingCart().getItemList().add(d);
+                });
             }else {
                 if(product.getQuantity()>=qty){
-                    Item item=new Item(product,qty,product.getPrice()*qty);
+                    int count=user.getShoppingCart().getItemList().size();
+                    Item item=new Item(count+1,product,qty,product.getPrice()*qty);
                     user.getShoppingCart().getItemList().add(item);
 
                 }else {
@@ -374,13 +382,11 @@ public class ShopService {
         if(user.getToken().equals("")){
             System.out.println("User not yet login");
         }else {
-            final Item[] item = {new Item()};
-            user.getShoppingCart().getItemList().forEach(d->{
-                if(d.getProduct().equals(product)){
-                    item[0] =d;
-                }
-            });
-            user.getShoppingCart().getItemList().remove(item);
+
+            Optional<Item> optionalItem=user.getShoppingCart().getItemList().stream().filter(
+                    s->s.getProduct().equals(product)).findAny();
+            optionalItem.ifPresent(item -> user.getShoppingCart().getItemList().remove(item));
+
             return viewShoppingCart();
         }
         return  null;

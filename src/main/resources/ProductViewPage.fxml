@@ -15,29 +15,31 @@
                   <TextField fx:id="categoryTXT" />
                   <TextField fx:id="priceTXT" />
                   <TextField fx:id="sellerTXT" />
+                  <TextField fx:id="qtyTXT" />
                </children>
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+            <VBox alignment="CENTER" prefHeight="125.0" prefWidth="140.0" spacing="10.0">
                <children>
-                  <Label alignment="CENTER" text="نام : ">
+                  <Label alignment="CENTER" text="نام ">
                      <VBox.margin>
                         <Insets left="37.0" />
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" text="دسته بندی : " />
-                  <Label alignment="CENTER" text="قیمت : ">
+                  <Label alignment="CENTER" text="دسته بندی " />
+                  <Label alignment="CENTER" text="قیمت ">
                      <VBox.margin>
                         <Insets left="22.0" />
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" text="فروشنده : ">
+                  <Label alignment="CENTER" text="فروشنده ">
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
+                  <Label prefHeight="17.0" prefWidth="140.0" text="تعدا کالای درخواستی" />
                </children>
                <HBox.margin>
                   <Insets />
@@ -55,6 +57,7 @@
                   <Button fx:id="addToBasketId" mnemonicParsing="false" text="افزودن به سبد" />
                </children>
             </HBox>
+            <Label fx:id="resultLBL" prefHeight="17.0" prefWidth="173.0" />
          </children>
       </VBox>
    </children>

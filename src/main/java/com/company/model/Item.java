@@ -1,6 +1,7 @@
 package com.company.model;
 
 public class Item {
+    private int id;
     private Product product;
     private int quantity;
     private int price;
@@ -29,7 +30,16 @@ public class Item {
         this.price = price;
     }
 
-    public Item(Product product, int quantity, int price) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Item(int id, Product product, int quantity, int price) {
+        this.id = id;
         this.product = product;
         this.quantity = quantity;
         this.price = price;
