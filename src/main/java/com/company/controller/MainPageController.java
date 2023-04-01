@@ -107,7 +107,7 @@ public class MainPageController implements Initializable {
         });
 
         userLNK.setOnAction(c->{
-            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("UserEditPage.fxml"));
+            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("UserEditPage2.fxml"));
             try {
                 Parent parent =loader.load();
             } catch (IOException e) {

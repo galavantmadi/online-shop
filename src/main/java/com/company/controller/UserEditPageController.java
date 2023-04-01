@@ -4,21 +4,14 @@ import com.company.Main;
 import com.company.model.RequestWalletCharge;
 import com.company.model.Status;
 import com.company.model.User;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-import java.util.stream.LongStream;
 
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class UserEditPageController implements Initializable {
@@ -26,17 +19,34 @@ public class UserEditPageController implements Initializable {
     private TextField phoneTXT;
 
     @FXML
-    private Button walletBTN;
+    private Label usernameLBL;
 
     @FXML
-    private TextField addressTXT;
+    private Label walletLBL;
 
     @FXML
+    private TextField amountTXT;
+
+    @FXML
+    private Button addBTN;
+
+    @FXML
+    private Label incWalletLBL;
+
+
+
+   /* @FXML
+    private Button walletBTN;*/
+
+    @FXML
+    private TextArea addressTXT;
+
+   /* @FXML
     private TextField walletTXT;
 
     @FXML
     private TextField incWalletTXT;
-
+*/
     @FXML
     private TextField passTXT;
 
@@ -47,22 +57,22 @@ public class UserEditPageController implements Initializable {
     private TextField usernameTXT;
 
     @FXML
-    private VBox root;
+    private BorderPane paneId;
 
     @FXML
     private TextField emailTXT;
 
     @FXML
-    private Button existBTN;
+    private Hyperlink exitLNK;
 
     @FXML
-    private Button logOutBTN;
+    private Button exitBTN;
 
     Stage stage;
     private MainPageController mainPageController;
 
     public void setStage() {
-        stage = (Stage) root.getScene().getWindow();
+        stage = (Stage) paneId.getScene().getWindow();
     }
 
     public void setMainPageController(MainPageController mainPageController) {
@@ -84,10 +94,11 @@ public class UserEditPageController implements Initializable {
         phoneTXT.setText(user.getPhone());
         addressTXT.setText(user.getAddress());
         emailTXT.setText(user.getEmail());
-        walletTXT.setText(String.valueOf(user.getWallet().getBalance()));
-        walletTXT.setEditable(false);
-        incWalletTXT.setText(String.valueOf(amount));
-        incWalletTXT.setEditable(false);
+        usernameLBL.setText(user.getUsername());
+        walletLBL.setText(String.valueOf(user.getWallet().getBalance()));
+
+        incWalletLBL.setText(String.valueOf(amount));
+
 
         editBTN.setOnAction(c->{
             user.setPassword(passTXT.getText());
@@ -96,11 +107,11 @@ public class UserEditPageController implements Initializable {
             user.setEmail(emailTXT.getText());
             Main.shopService.updateUser(user);
 
-            root.getScene().getWindow().hide();
+            paneId.getScene().getWindow().hide();
 
         });
 
-        walletBTN.setOnAction(c->{
+        /*walletBTN.setOnAction(c->{
             FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("IncreaseWalletUserPage.fxml"));
             try {
                 Parent parent =loader.load();
@@ -114,15 +125,19 @@ public class UserEditPageController implements Initializable {
             controller.setStage();
             controller.setCategoryListPageController(this);
             stage.show();
-        });
+        });*/
 
-        existBTN.setOnAction(c->{
-            root.getScene().getWindow().hide();
+        exitBTN.setOnAction(c->{
+            paneId.getScene().getWindow().hide();
 
         });
-        logOutBTN.setOnAction(c->{
+        exitLNK.setOnAction(c->{
             mainPageController.logOut();
-            root.getScene().getWindow().hide();
+            paneId.getScene().getWindow().hide();
+        });
+        addBTN.setOnAction(c->{
+            Main.shopService.createChargeWallet(Main.shopService.getUser(),Long.parseLong(amountTXT.getText()));
+            calcIncreaseWallet();
         });
 
     }
@@ -132,7 +147,7 @@ public class UserEditPageController implements Initializable {
                 .stream().filter(c->c.getUser().equals(Main.shopService.getUser())
                 && c.getStatus().equals(Status.CREATE))
                 .mapToLong(RequestWalletCharge::getAmount).sum();
-        incWalletTXT.setText(String.valueOf(amount));
-        incWalletTXT.setEditable(false);
+        incWalletLBL.setText(String.valueOf(amount));
+
     }
 }
