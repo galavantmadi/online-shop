@@ -3,12 +3,21 @@ package com.company.model;
 import java.util.Date;
 
 public class Order {
+    private int id;
     private User user;
     private Product product;
     private Date createDate;
     private int qty;
     private long totalAmount;
     private StatusOrder statusOrder;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return user;
@@ -58,7 +67,8 @@ public class Order {
         this.statusOrder = statusOrder;
     }
 
-    public Order(User user, Product product, Date createDate, int qty, long totalAmount, StatusOrder statusOrder) {
+    public Order(int id, User user, Product product, Date createDate, int qty, long totalAmount, StatusOrder statusOrder) {
+        this.id = id;
         this.user = user;
         this.product = product;
         this.createDate = createDate;

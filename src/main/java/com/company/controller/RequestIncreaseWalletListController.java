@@ -80,6 +80,7 @@ public class RequestIncreaseWalletListController implements Initializable {
             Stage stage=new Stage();
             stage.setScene(new Scene(loader.getRoot()));
             stage.show();
+            System.out.println(Main.shopService.getUser().getOrderList());
         });
 
         confirmBTN.setOnAction(c->{
@@ -121,6 +122,7 @@ public class RequestIncreaseWalletListController implements Initializable {
         // Copies data into the TableView's items list
         requestWalletTBL.getItems().addAll(Main.shopService.getRequestWalletChargeArrayList()
         .stream().filter(d->d.getStatus().equals(Status.CREATE)).collect(Collectors.toList()));
+        System.out.println(Main.shopService.getUser());
 
     }
 

@@ -60,9 +60,6 @@ public class RequestIncreaseWalletConfirmController implements Initializable {
         amountTXT.setEditable(false);
         dateTXT.setEditable(false);
         userTXT.setEditable(false);
-        /*amountTXT.setText(String.valueOf(requestWalletCharge.getAmount()));
-        dateTXT.setText(new SimpleDateFormat("dd/MM/yyyy").format(requestWalletCharge.getCreateTime()));
-        userTXT.setText(String.valueOf(requestWalletCharge.getUser().getUsername()));*/
         saveBTN.setOnAction(c->{
            String result= requestIncreaseWalletListController.confirmRequest();
            if(result.equals("Success")){

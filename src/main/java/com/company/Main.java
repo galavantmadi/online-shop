@@ -87,8 +87,13 @@ public class Main extends Application {
         ArrayList<RequestWalletCharge> requestWalletCharges=new ArrayList<>();
         requestWalletCharges.add(charge);
 
+        //Create Shop
+        Shop shop=new Shop("DigiKal","www.digikala.com","8532",0);
+        ArrayList<Shop> shops=new ArrayList<>();
+        shops.add(shop);
 
-        shopService=new ShopService(users,new ArrayList<>(),admins,sellers
+
+        shopService=new ShopService(users,shops,admins,sellers
                 ,products,categories,requestWalletCharges,new User(),admin,new Seller());
 
         launch(args);

@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,10 +39,20 @@ public class AdminPageController implements Initializable {
     @FXML
     private Hyperlink walletIncreaseLNK;
 
+    @FXML
+    private Hyperlink userOrderLNK;
+
+    private String username;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         existBTN.setOnAction(s->{
             rootId.getScene().getWindow().hide();
+            Main.shopService.logOut(username);
             FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("MainPage.fxml"));
             try {
                 Parent parent =loader.load();
@@ -127,6 +138,26 @@ public class AdminPageController implements Initializable {
             stage.setScene(new Scene(loader.getRoot()));
             stage.setTitle("لیست درخواست های شارژ");
             stage.show();
+            System.out.println(Main.shopService.getUser().getOrderList());
+        });
+
+        userOrderLNK.setOnAction(c->{
+            rootId.getScene().getWindow().hide();
+            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("UserOrderListPage.fxml"));
+            try {
+                Parent parent =loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            Stage stage=new Stage();
+            stage.setScene(new Scene(loader.getRoot()));
+            stage.setTitle("لیست سفارشات مشتریان");
+            UserOrderListPageController controller = loader.<UserOrderListPageController>getController();
+            controller.setStage();
+            controller.setAdminPageController(this);
+            stage.show();
+            System.out.println(Main.shopService.getUser().getOrderList());
         });
     }
 }

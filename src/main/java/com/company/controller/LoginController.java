@@ -77,7 +77,10 @@ public class LoginController implements Initializable {
 
             Stage stage=new Stage();
             stage.setScene(new Scene(loader.getRoot()));
+            AdminPageController controller = loader.<AdminPageController>getController();
+            controller.setUsername(usernameField.getText());
             stage.show();
+            System.out.println(Main.shopService.getUser().getOrderList());
         }else if(accountType== AccountType.SELLER){
             root.getScene().getWindow().hide();
             FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("SellerPage.fxml"));
@@ -85,6 +88,7 @@ public class LoginController implements Initializable {
 
             Stage stage=new Stage();
             stage.setScene(new Scene(loader.getRoot()));
+
             stage.show();
         }
         else if(accountType== AccountType.USER){
@@ -97,6 +101,7 @@ public class LoginController implements Initializable {
             Stage stage=new Stage();
             stage.setScene(new Scene(loader.getRoot()));
             stage.show();
+            System.out.println(Main.shopService.getUser());
         }
         else {
             resultLBL.setTextFill(Color.RED);

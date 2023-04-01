@@ -268,6 +268,29 @@ public class ShopService {
         return AccountType.NONE;
     }
 
+    public void logOut(String username){
+        Optional<User> user = searchUser(username);
+        Optional<Admin> admin = searchAdmin(username);
+        Optional<Seller> seller = searchSeller(username);
+        if(user.isPresent()){
+            user.get().setToken("");
+            user.get().setShoppingCart( new ShoppingCart(new Date(),new ArrayList<>()));
+            /*user.get().setOrderList(new ArrayList<>());
+            user.get().setProductList(new ArrayList<>());*/
+            Main.shopService.setUser(user.get());
+
+
+        }else if(admin.isPresent()){
+            admin.get().setToken("");
+            Main.shopService.setAdmin(admin.get());
+
+        }else if(seller.isPresent()){
+            seller.get().setToken("");
+            Main.shopService.setSeller(seller.get());
+
+        }
+    }
+
     public List<Product> searchProductByCategory(String title){
       return   productList.stream().filter(d->d.getCategory().getTitle().contains(title))
                 .collect(Collectors.toList());
@@ -295,7 +318,7 @@ public class ShopService {
                     c.setStatus(Status.DONE);
                     userList.forEach(d->{
                         if(d.getId()==c.getUser().getId()){
-                            d.getWallet().setBalance(c.getAmount());
+                            d.getWallet().setBalance(d.getWallet().getBalance()+c.getAmount());
                         }
                     });
                     System.out.println("Request Charge Success");
@@ -327,10 +350,11 @@ public class ShopService {
     public ArrayList<Item> viewShoppingCart(){
         if(user.getToken().equals("")){
             System.out.println("User not yet login ");
+            return null;
         }else {
             return user.getShoppingCart().getItemList();
         }
-        return null;
+
     }
 
     public ArrayList<Item> createShoppingCart(Product product, int qty){
@@ -378,8 +402,8 @@ public class ShopService {
         return viewShoppingCart();
     }
 
-    public ArrayList<Item> removeItemFromShoppingCart(Product product){
-        if(user.getToken().equals("")){
+    public void removeItemFromShoppingCart(Product product){
+        if(user.getToken()==null){
             System.out.println("User not yet login");
         }else {
 
@@ -387,9 +411,9 @@ public class ShopService {
                     s->s.getProduct().equals(product)).findAny();
             optionalItem.ifPresent(item -> user.getShoppingCart().getItemList().remove(item));
 
-            return viewShoppingCart();
         }
-        return  null;
+
+
     }
 
     public ArrayList<Item>removeAllItemFromShoppingCart(){
@@ -402,50 +426,52 @@ public class ShopService {
         return  null;
     }
 
-    public void confirmShoppingCart(User user){
+    public String confirmShoppingCart(User user){
         if(user.getToken().equals("")){
             System.out.println("User not login yet");
+            return "User not login yet";
         }else {
             if(user.getShoppingCart()==null){
                 System.out.println("Shopping Cart is empty");
+                return "Shopping Cart is empty";
             }else {
                 long totalAmount=user.getShoppingCart().getItemList().stream().mapToLong(Item::getPrice).sum();
                 if(user.getWallet().getBalance()>=totalAmount){
                     user.getShoppingCart().getItemList().forEach(c->{
-                        Order order=new Order(user,c.getProduct(),new Date(),c.getQuantity(),c.getPrice(),
+                        int count=user.getOrderList().size();
+                        Order order=new Order(count+1,user,c.getProduct(),new Date(),c.getQuantity(),c.getPrice(),
                                 StatusOrder.CREATE);
                         user.getOrderList().add(order);
+                       /* userList.forEach(d->{
+                            if(d.equals(user)){
+                                d.getOrderList().add(order);
+                            }
+                        });*/
                     });
+                    user.setShoppingCart(new ShoppingCart(new Date(),new ArrayList<>()));
+                    System.out.println("Action Success");
+                    return "Success";
+                }else {
+                    System.out.println("Wallet User Not Valid");
+                    return "Wallet User Not Valid";
                 }
-                user.setShoppingCart(new ShoppingCart(new Date(),new ArrayList<>()));
-                System.out.println("Action Success");
+
             }
         }
     }
 
-    public ArrayList<OrderResponse> viewOrderList(){
-        if(!admin.getToken().equals("")){
-            System.out.println("Admin not login yet");
-        }else {
-            ArrayList<OrderResponse> orderResponseList=new ArrayList<>();
-            userList.forEach(u->{
-                u.getOrderList().forEach(o->{
-                    if(o.getStatusOrder()== StatusOrder.CREATE){
-                        OrderResponse response=new OrderResponse(getNextCountValue(),u.getUsername(),u.getPhone(),
-                                u.getEmail(),o.getProduct().getName(), o.getCreateDate(),o.getQty(),o.getTotalAmount()
-                                ,o.getProduct().getSeller().getCompanyName(),o.getProduct().getSeller().getPhone(),o.getStatusOrder());
-                        orderResponseList.add(response);
-                    }
-                });
-            });
-            return orderResponseList;
-        }
-        return null;
+    public ArrayList<Order> viewOrderList(){
+
+
+            return user.getOrderList();
+
+
     }
 
-    public void confirmOrderUserByAdmin(String username,String productName){
-        if(!admin.getToken().equals("")){
+    public String confirmOrderUserByAdmin(String username,String productName){
+        if(admin.getToken()==null || admin.getToken().equals("")){
             System.out.println("Admin not login yet");
+            return "Admin not login yet";
         }else{
             Optional<User> user=userList.stream().filter(c->c.getUsername().equals(username)).findAny();
             user.ifPresent(user1 -> user1.getOrderList().forEach(c -> {
@@ -457,12 +483,17 @@ public class ShopService {
                     product.ifPresent(value -> sellerList.forEach(s -> {
                         if (s.equals(value.getSeller())) {
                             s.getWallet().setBalance((c.getTotalAmount() * 90) / 100);
+
                         }
                     }));
                     shopList.get(0).setTotalProfit(shopList.get(0).getTotalProfit() + (c.getTotalAmount() * 10) / 100);
+
                 }
+
             }));
+
         }
+        return "Success";
     }
 
     public Optional<Product> searchProductByTitleAndCategory(Product product){

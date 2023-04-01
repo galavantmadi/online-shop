@@ -45,7 +45,7 @@ public class User extends SuperUser {
         this.shoppingCart = shoppingCart;
     }
 
-    public List<Order> getOrderList() {
+    public ArrayList<Order> getOrderList() {
         return orderList;
     }
 
@@ -53,14 +53,13 @@ public class User extends SuperUser {
         this.orderList = orderList;
     }
 
-    public List<Product> getProductList() {
+    public ArrayList<Product> getProductList() {
         return productList;
     }
 
     public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;
     }
-
 
     public User(int id, String username, String password, String phone, AccountType accountType, boolean active, String token, String email, String address, Wallet wallet, ShoppingCart shoppingCart, ArrayList<Order> orderList, ArrayList<Product> productList) {
         super(id, username, password, phone, accountType, active, token);

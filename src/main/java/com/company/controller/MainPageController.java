@@ -86,6 +86,7 @@ public class MainPageController implements Initializable {
             LoginController controller = loader.<LoginController>getController();
             controller.setStage();
             controller.setMainPageController(this);
+            System.out.println(Main.shopService.getUser().getOrderList());
 
             stage.show();
         });
@@ -136,12 +137,14 @@ public class MainPageController implements Initializable {
     public void init(){
         showCountLBL.setTextFill(Color.BLACK);
         categoryLBL.layoutXProperty().bind(topPanelId.widthProperty().subtract(categoryLBL.widthProperty()).divide(1));
-        if(Main.shopService.getUser().getId()==0){
+        if(Main.shopService.getUser().getToken()==null||Main.shopService.getUser().getToken().equals("")){
             userLNK.setText("");
             userLNK.setVisible(false);
             welcomeLBL.setVisible(false);
             enterLNK.setVisible(true);
             registerLNK.setVisible(true);
+            countLBL.setText("0");
+            countLBL.setTextFill(Color.BLACK);
         }else {
             userLNK.setText(Main.shopService.getUser().getUsername());
             userLNK.setVisible(true);
@@ -224,13 +227,15 @@ public class MainPageController implements Initializable {
         productLSV.getItems().addAll(products);
     }
 
-    public void logOut(){
-        Main.shopService.setUser(new User());
+    public void logOut(String username){
+        Main.shopService.logOut(username);
         userLNK.setText("");
         userLNK.setVisible(false);
         welcomeLBL.setVisible(false);
         enterLNK.setVisible(true);
         registerLNK.setVisible(true);
+        countLBL.setText("0");
+        countLBL.setTextFill(Color.BLACK);
     }
 
     private void loadFXML() {
@@ -263,6 +268,7 @@ public class MainPageController implements Initializable {
         controller.setStage();
         controller.setMainPageController(this);
         stage.show();
+
     }
 
     private void loadFXMLUserPageWitSelectedTab(){
@@ -286,6 +292,11 @@ public class MainPageController implements Initializable {
         countLBL.setText(String.valueOf(Main.shopService.getUser().getShoppingCart().getItemList().size()));
         countLBL.setTextFill(Color.GREEN);
         showCountLBL.setTextFill(Color.GREEN);
+    }
+
+    public void refreshBasketLBL(){
+        countLBL.setText("0");
+        countLBL.setTextFill(Color.BLACK);
     }
 
 }
