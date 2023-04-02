@@ -12,9 +12,11 @@
     <right>
         <VBox alignment="TOP_CENTER" prefHeight="412.0" prefWidth="147.0" spacing="20.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="addBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="درج" />
-                <Button fx:id="removeBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="حذف" />
-                <Button fx:id="existBTN" mnemonicParsing="false" text="بازگشت" />
+                <Button fx:id="addBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="69.0" text="درج" />
+                <Button fx:id="removeBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="حذف" />
+            <Button fx:id="activeBTN" mnemonicParsing="false" text="فعال سازی" />
+                <Button fx:id="existBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="بازگشت" />
+            <Label fx:id="resultLBL" alignment="CENTER" prefHeight="22.0" prefWidth="143.0" />
             </children>
             <BorderPane.margin>
                 <Insets />

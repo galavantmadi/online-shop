@@ -218,7 +218,7 @@ public class ShopService {
         Optional<Seller> seller= searchSeller(username);
         if(!seller.isPresent()){
             int count=sellerList.size();
-            Seller newSeller=new Seller(count+1,username,password,phone, AccountType.SELLER,true,"",companyName,
+            Seller newSeller=new Seller(count+1,username,password,phone, AccountType.SELLER,false,"",companyName,
                     new Wallet(WalletType.SELLER,0),new ArrayList<>());
             sellerList.add(newSeller);
             newSeller.crate();

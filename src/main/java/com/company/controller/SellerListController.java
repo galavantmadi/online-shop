@@ -1,17 +1,21 @@
 package com.company.controller;
 
 import com.company.Main;
+import com.company.model.RequestWalletCharge;
 import com.company.model.Seller;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,11 +40,26 @@ public class SellerListController implements Initializable {
     @FXML
     private Button addBTN;
 
+    @FXML
+    private Button activeBTN;
+
+    @FXML
+    private Label resultLBL;
+
+
+
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        resultLBL.setText("");
+        resultLBL.setTextFill(Color.BLACK);
+
         existBTN.setOnAction(x->{
+            resultLBL.setText("");
+            resultLBL.setTextFill(Color.BLACK);
             root.getScene().getWindow().hide();
             FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("AdminPage2.fxml"));
             try {
@@ -55,6 +74,8 @@ public class SellerListController implements Initializable {
         });
 
         addBTN.setOnAction(c->{
+            resultLBL.setText("");
+            resultLBL.setTextFill(Color.BLACK);
             FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("AddSellerPage.fxml"));
             try {
                 Parent parent =loader.load();
@@ -71,9 +92,28 @@ public class SellerListController implements Initializable {
         });
 
         removeBTN.setOnAction(c->{
+            resultLBL.setText("");
+            resultLBL.setTextFill(Color.BLACK);
             Seller seller=sellerListTBL.getSelectionModel().getSelectedItem();
             if(seller!=null){
                 sellerListTBL.getItems().remove(seller);
+            }
+        });
+
+        activeBTN.setOnAction(c->{
+            Seller seller=sellerListTBL.getSelectionModel().getSelectedItem();
+            if(seller.isActive()!=true){
+                Main.shopService.getSellerList().forEach(d->{
+                    if(d.equals(seller)){
+                        d.setActive(true);
+                    }
+                });
+                loadTable();
+                resultLBL.setText("Success");
+                resultLBL.setTextFill(Color.GREEN);
+            }else {
+                resultLBL.setText("Seller Is Active");
+                resultLBL.setTextFill(Color.RED);
             }
         });
 
@@ -97,13 +137,17 @@ public class SellerListController implements Initializable {
         companyNameCol.setCellValueFactory(new PropertyValueFactory<>("companyName"));
         companyNameCol.setPrefWidth(150);
 
-        sellerListTBL.getColumns().addAll(idCol,usernameCol,passeCol,phoneCol,companyNameCol);
+        TableColumn<Seller,Boolean> statusCol=new TableColumn<>("Status");
+        statusCol.setCellValueFactory(c-> new SimpleObjectProperty<Boolean>(c.getValue().isActive()));
+        statusCol.setPrefWidth(150);
 
-        loadTable(Main.shopService.getSellerList());
+        sellerListTBL.getColumns().addAll(idCol,usernameCol,passeCol,phoneCol,companyNameCol,statusCol);
+
+        loadTable();
 
     }
 
-    public void loadTable(ArrayList<Seller> sellers){
+    public void loadTable(){
         sellerListTBL.getItems().clear();
         // Copies data into the TableView's items list
         sellerListTBL.getItems().addAll(Main.shopService.getSellerList());

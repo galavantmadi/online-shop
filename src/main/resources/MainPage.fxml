@@ -8,32 +8,65 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.geometry.Insets?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.MainPageController">
     <top>
-        <Pane fx:id="topPanelId" prefHeight="54.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <HBox alignment="TOP_RIGHT" prefHeight="68.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-                <Hyperlink fx:id="registerLNK" layoutX="14.0" layoutY="19.0" text="ثبت نام" />
-                <Hyperlink fx:id="enterLNK" layoutX="77.0" layoutY="19.0" text="ورود" />
-            <Hyperlink fx:id="userLNK" layoutX="83.0" layoutY="17.0" prefHeight="23.0" prefWidth="91.0" text="user">
-               <font>
-                  <Font size="14.0" />
-               </font></Hyperlink>
-                <Label fx:id="welcomeLBL" layoutX="20.0" layoutY="24.0" prefHeight="17.0" prefWidth="70.0" text="خوش آمدید" />
-            <Label fx:id="categoryLBL" alignment="CENTER_RIGHT" layoutX="480.0" layoutY="-2.0" prefHeight="58.0" prefWidth="120.0" style="-fx-background-color: #EEEEEE;" text="دسته بندی ها" textAlignment="RIGHT">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="imgID" fitHeight="30.0" fitWidth="55.0" layoutX="401.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@image/cart-png-clipart-icon-gio-hang.jpg" />
-               </image>
-            </ImageView>
-            <Label fx:id="showCountLBL" alignment="CENTER_RIGHT" layoutX="268.0" layoutY="19.0" prefHeight="17.0" prefWidth="122.0" text="تعداد کالاها در سبد خرید" />
-            <Label fx:id="countLBL" alignment="CENTER" layoutX="235.0" layoutY="13.0" prefHeight="32.0" prefWidth="51.0" text="0" />
-
+                <Label fx:id="welcomeLBL" alignment="CENTER" prefHeight="17.0" prefWidth="74.0" text="خوش آمدید">
+                    <HBox.margin>
+                        <Insets right="-45.0" top="24.0" />
+                    </HBox.margin>
+                </Label>
+                <Hyperlink fx:id="registerLNK" prefHeight="23.0" prefWidth="57.0" text="ثبت نام">
+                    <HBox.margin>
+                        <Insets top="24.0" />
+                    </HBox.margin>
+                </Hyperlink>
+                <Hyperlink fx:id="userLNK" prefHeight="23.0" prefWidth="91.0" text="user">
+                    <HBox.margin>
+                        <Insets right="-90.0" top="25.0" />
+                    </HBox.margin>
+                </Hyperlink>
+                <Hyperlink fx:id="enterLNK" text="ورود">
+                    <HBox.margin>
+                        <Insets right="130.0" top="24.0" />
+                    </HBox.margin>
+                </Hyperlink>
+                <Label fx:id="countLBL" text="0">
+                    <HBox.margin>
+                        <Insets right="5.0" top="26.0" />
+                    </HBox.margin>
+                </Label>
+                <Label fx:id="showCountLBL" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="114.0" text="تعداد کالا در سبد خرید">
+                    <HBox.margin>
+                        <Insets right="6.0" top="24.0" />
+                    </HBox.margin>
+                </Label>
+                <ImageView fx:id="imgID" fitHeight="35.0" fitWidth="65.0" layoutX="401.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                    <HBox.margin>
+                        <Insets right="10.0" top="15.0" />
+                    </HBox.margin>
+                    <image>
+                        <Image url="@image/cart-png-clipart-icon-gio-hang.jpg" />
+                    </image>
+                </ImageView>
+                <Label prefHeight="89.0" prefWidth="120.0" style="-fx-background-color: #EEEEEE;" text="دسته بندی ها">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                    <padding>
+                        <Insets left="15.0" />
+                    </padding>
+                </Label>
             </children>
-        </Pane>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+        </HBox>
     </top>
     <right>
         <ToolBar fx:id="toolbarId" nodeOrientation="RIGHT_TO_LEFT" orientation="VERTICAL" prefHeight="346.0" prefWidth="119.0" BorderPane.alignment="CENTER_LEFT">

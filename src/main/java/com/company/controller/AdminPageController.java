@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -41,6 +42,9 @@ public class AdminPageController implements Initializable {
 
     @FXML
     private Hyperlink userOrderLNK;
+    @FXML
+    private Label totalAmountLBL;
+
 
     private String username;
 
@@ -50,6 +54,8 @@ public class AdminPageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        totalAmountLBL.setText(String.valueOf(Main.shopService.getShopList().get(0).getTotalProfit()));
+
         existBTN.setOnAction(s->{
             rootId.getScene().getWindow().hide();
             Main.shopService.logOut(username);

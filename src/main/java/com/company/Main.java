@@ -68,6 +68,11 @@ public class Main extends Application {
         Product product4=new Product(4,"ساعت هوشمند 4",9,38000000,new ArrayList<>(),
                 "اطلاعات اضافه برای ساعت هوشمند4",category,seller);
 
+        seller.getProductList().add(product);
+        seller.getProductList().add(product2);
+        seller.getProductList().add(product3);
+        seller.getProductList().add(product4);
+
         ArrayList<Product> products=new ArrayList<>();
         products.add(product);
         products.add(product2);

@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -25,7 +26,28 @@ public class AddCustomerPageController implements Initializable {
 
 
     @FXML
+    private Button sellerAddBTN;
+
+    @FXML
+    private TextField sellerPhoneTXT;
+
+    @FXML
+    private TabPane rootId;
+
+    @FXML
+    private TextField emailTXT;
+
+    @FXML
+    private Label sellerResultLBL;
+
+    @FXML
+    private Button addBTN;
+
+    @FXML
     private TextField phoneTXT;
+
+    @FXML
+    private TextField sellerPassTXT;
 
     @FXML
     private TextField addressTXT;
@@ -40,19 +62,16 @@ public class AddCustomerPageController implements Initializable {
     private TextField usernameTXT;
 
     @FXML
-    private VBox root;
+    private TextField sellerCompanyTXT;
 
     @FXML
-    private TextField emailTXT;
-
-    @FXML
-    private Button addBTN;
+    private TextField sellerUsernameTXT;
 
     Stage stage;
     private MainPageController mainPageController;
 
     public void setStage() {
-        stage = (Stage) root.getScene().getWindow();
+        stage = (Stage) rootId.getScene().getWindow();
     }
 
     public void setMainPageController(MainPageController mainPageController) {
@@ -80,7 +99,7 @@ public class AddCustomerPageController implements Initializable {
             resultLBL.setText(result);
             resultLBL.setTextFill(Color.RED);
         }else {
-            root.getScene().getWindow().hide();
+            rootId.getScene().getWindow().hide();
             mainPageController.init();
             FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("MainPage.fxml"));
             try {
@@ -104,10 +123,39 @@ public class AddCustomerPageController implements Initializable {
         return strValue;
     }
 
+    public void saveSeller(){
+        String username=sellerUsernameTXT.getText();
+        String password=sellerPassTXT.getText();
+        String phone=sellerPhoneTXT.getText();
+        String company=sellerCompanyTXT.getText();
+        String result=Main.shopService.createSeller(username,password,phone,company);
+
+        if(!result.equals("Success")){
+            sellerResultLBL.setText(result);
+            sellerResultLBL.setTextFill(Color.RED);
+        }else {
+            rootId.getScene().getWindow().hide();
+            mainPageController.init();
+            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("MainPage.fxml"));
+            try {
+                Parent parent =loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            Stage stage=new Stage();
+            stage.setScene(new Scene(loader.getRoot()));
+            stage.show();
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addBTN.setOnAction(c->{
             saveUser();
+        });
+        sellerAddBTN.setOnAction(c->{
+            saveSeller();
         });
     }
 }

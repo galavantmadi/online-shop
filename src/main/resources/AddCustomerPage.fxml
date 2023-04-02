@@ -8,58 +8,91 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.AddCustomerPageController">
-    <children>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <children>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
-                    <children>
-                        <Label text="Username : " />
-                        <Label text="Password : ">
-                            <VBox.margin>
-                                <Insets left="5.0" />
-                            </VBox.margin>
+<TabPane fx:id="rootId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controller.AddCustomerPageController">
+  <tabs>
+    <Tab text="ثبت نام کاربر">
+         <content>
+            <VBox alignment="CENTER" prefHeight="294.0" prefWidth="600.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="210.0" prefWidth="458.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="136.0" prefWidth="142.0" spacing="10.0">
+                           <children>
+                              <Label text="نام کاربری" />
+                              <Label text="پسورد" />
+                              <Label text="ایمیل" />
+                              <Label text="تلفن" />
+                              <Label text="آدرس" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="210.0" prefWidth="188.0">
+                           <children>
+                              <TextField fx:id="usernameTXT" prefHeight="25.0" prefWidth="128.0" />
+                              <TextField fx:id="passTXT" />
+                              <TextField fx:id="emailTXT" />
+                              <TextField fx:id="phoneTXT" />
+                              <TextField fx:id="addressTXT" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="82.0" prefWidth="600.0" spacing="5.0">
+                     <children>
+                        <Button fx:id="addBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="ثبت تغییرات">
+                           <VBox.margin>
+                              <Insets left="130.0" />
+                           </VBox.margin></Button>
+                        <Label fx:id="resultLBL" prefHeight="17.0" prefWidth="98.0">
+                           <VBox.margin>
+                              <Insets left="130.0" />
+                           </VBox.margin></Label>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </content>
+    </Tab>
+    <Tab text="ثبت نام همکار">
+         <content>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                           <children>
+                              <Label text="نام کاربری" />
+                              <Label text="پسورد" />
+                              <Label text="تلفن" />
+                              <Label text="نام شرکت" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="115.0" prefWidth="162.0" spacing="5.0">
+                           <children>
+                              <TextField fx:id="sellerUsernameTXT" prefHeight="25.0" prefWidth="146.0" />
+                              <TextField fx:id="sellerPassTXT" />
+                              <TextField fx:id="sellerPhoneTXT" />
+                              <TextField fx:id="sellerCompanyTXT" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="94.0" prefWidth="600.0" spacing="5.0">
+                     <children>
+                        <Button fx:id="sellerAddBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="ثبت تغییرات">
+                           <VBox.margin>
+                              <Insets left="100.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Label fx:id="sellerResultLBL" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="120.0">
+                           <VBox.margin>
+                              <Insets left="100.0" />
+                           </VBox.margin>
                         </Label>
-                        <Label text="Phone : ">
-                            <VBox.margin>
-                                <Insets left="20.0" />
-                            </VBox.margin>
-                        </Label>
-                        <Label text="Email : ">
-                            <VBox.margin>
-                                <Insets left="25.0" />
-                            </VBox.margin>
-                        </Label>
-                        <Label text="Address : " />
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER" prefHeight="165.0" prefWidth="156.0" spacing="10.0">
-                    <children>
-                        <TextField fx:id="usernameTXT" />
-                        <TextField fx:id="passTXT" />
-                        <TextField fx:id="phoneTXT" />
-                        <TextField fx:id="emailTXT" />
-                        <TextField fx:id="addressTXT" />
-                    </children>
-                    <padding>
-                        <Insets top="5.0" />
-                    </padding>
-                </VBox>
-            </children>
-        </HBox>
-        <VBox alignment="CENTER" prefHeight="59.0" prefWidth="342.0" spacing="5.0">
-            <children>
-                <Button fx:id="addBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Add">
-                    <VBox.margin>
-                        <Insets left="100.0" />
-                    </VBox.margin>
-                </Button>
-                <Label fx:id="resultLBL" prefHeight="17.0" prefWidth="152.0">
-                    <VBox.margin>
-                        <Insets left="100.0" />
-                    </VBox.margin>
-                </Label>
-            </children>
-        </VBox>
-    </children>
-</VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </content>
+    </Tab>
+  </tabs>
+</TabPane>

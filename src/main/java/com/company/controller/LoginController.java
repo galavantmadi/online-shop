@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.Main;
 import com.company.model.AccountType;
+import com.company.model.Seller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -49,8 +51,11 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        resultLBL.setText("");
+        resultLBL.setTextFill(Color.BLACK);
         loginBTN.setOnKeyPressed(s->{
-
+            resultLBL.setText("");
+            resultLBL.setTextFill(Color.BLACK);
             try {
                 checkLogin();
             } catch (IOException e) {
@@ -58,7 +63,8 @@ public class LoginController implements Initializable {
             }
         });
         loginBTN.setOnAction(s->{
-
+            resultLBL.setText("");
+            resultLBL.setTextFill(Color.BLACK);
             try {
                 checkLogin();
             } catch (IOException e) {
@@ -82,14 +88,26 @@ public class LoginController implements Initializable {
             stage.show();
             System.out.println(Main.shopService.getUser().getOrderList());
         }else if(accountType== AccountType.SELLER){
-            root.getScene().getWindow().hide();
-            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("SellerPage.fxml"));
-            Parent  parent =loader.load();
+            Optional<Seller> seller =Main.shopService.getSellerList().stream().filter(s->s.getUsername()
+                    .equals(usernameField.getText())).findAny();
+            if(!seller.isPresent()){
+                resultLBL.setText("Login Seller Fail");
+                resultLBL.setTextFill(Color.RED);
+            }else if(!seller.get().isActive()){
+                resultLBL.setText("Seller Id Not Active");
+                resultLBL.setTextFill(Color.RED);
+                return;
+            }else {
+                root.getScene().getWindow().hide();
+                FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("SellerPage.fxml"));
+                Parent  parent =loader.load();
 
-            Stage stage=new Stage();
-            stage.setScene(new Scene(loader.getRoot()));
+                Stage stage=new Stage();
+                stage.setScene(new Scene(loader.getRoot()));
 
-            stage.show();
+                stage.show();
+            }
+
         }
         else if(accountType== AccountType.USER){
             root.getScene().getWindow().hide();

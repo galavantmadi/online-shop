@@ -71,7 +71,7 @@ public class AddSellerPageController implements Initializable {
                 ,new ArrayList<>());
         String result=sellerListController.addSellerToTable(seller);
         if(result.equals("Success")){
-            sellerListController.loadTable(Main.shopService.getSellerList());
+            sellerListController.loadTable();
         }else {
             resultLBL.setText(result);
             resultLBL.setTextFill(Color.RED);

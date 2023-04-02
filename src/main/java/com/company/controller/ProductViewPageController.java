@@ -52,6 +52,11 @@ public class ProductViewPageController implements Initializable {
     @FXML
     private Label resultLBL;
 
+    @FXML
+    private TextField productQtyTXT;
+
+
+
     Stage stage;
     private MainPageController mainPageController;
 
@@ -75,6 +80,8 @@ public class ProductViewPageController implements Initializable {
         categoryTXT.setText(Main.productSelected.getCategory().getTitle());
         priceTXT.setEditable(false);
         priceTXT.setText(String.valueOf(Main.productSelected.getPrice()));
+        productQtyTXT.setText(String.valueOf(Main.productSelected.getQuantity()));
+        productQtyTXT.setEditable(false);
 
         addToBasketId.setOnAction(c->{
             if(Main.shopService.getUser().getToken()==null){

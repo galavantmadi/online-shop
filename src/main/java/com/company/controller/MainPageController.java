@@ -49,11 +49,7 @@ public class MainPageController implements Initializable {
     @FXML
     private ListView<Product> productLSV;
 
-    @FXML
-    private Label categoryLBL;
 
-    @FXML
-    private Pane topPanelId;
 
     @FXML
     private Label countLBL;
@@ -136,7 +132,9 @@ public class MainPageController implements Initializable {
 
     public void init(){
         showCountLBL.setTextFill(Color.BLACK);
-        categoryLBL.layoutXProperty().bind(topPanelId.widthProperty().subtract(categoryLBL.widthProperty()).divide(1));
+        //categoryLBL.layoutXProperty().bind(topPanelId.widthProperty().subtract(categoryLBL.widthProperty()).divide(1));
+        //imgID.layoutXProperty().bind(imgID.fitWidthProperty().subtract(imgID.fitWidthProperty()).divide(-1));
+
         if(Main.shopService.getUser().getToken()==null||Main.shopService.getUser().getToken().equals("")){
             userLNK.setText("");
             userLNK.setVisible(false);
