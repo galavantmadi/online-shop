@@ -46,12 +46,18 @@ public class AddCategoryPageController implements Initializable {
 
     public void saveCategory() {
         String title = titleTXT.getText();
+        if(title.equals("")){
+            resultLBL.setText("اطلاعات وارد نشده است");
+            resultLBL.setTextFill(Color.RED);
+            return;
+        }
 
         Category category = new Category(getNextCountValue(), title);
         String result = categoryListPageController.addCategoryToTable(category);
         if (result.equals("Success")) {
             categoryListPageController.loadTable();
-            resultLBL.setText(" ");
+            resultLBL.setText("");
+            titleTXT.setText("");
         } else {
             resultLBL.setText(result);
             resultLBL.setTextFill(Color.RED);
@@ -61,7 +67,8 @@ public class AddCategoryPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addBTN.setOnAction(c->{
-
+            resultLBL.setText("");
+            resultLBL.setTextFill(Color.RED);
             saveCategory();
         });
     }

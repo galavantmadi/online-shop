@@ -57,18 +57,21 @@ public class UserOrderListPageController implements Initializable {
         creatTableOrder();
         confirmBTN.setOnAction(v->{
             Order order=orderListTBL.getSelectionModel().getSelectedItem();
-            if(order.getStatusOrder().equals(StatusOrder.CREATE)){
-                String result=Main.shopService.confirmOrderUserByAdmin(order.getUser().getUsername(),
-                        order.getProduct().getName());
-                if(result.equals("Success")){
-                    resultLBL.setText(result);
-                    resultLBL.setTextFill(Color.GREEN);
-                    loadTable();
-                }else {
-                    resultLBL.setText(result);
-                    resultLBL.setTextFill(Color.RED);
+            if(order!=null){
+                if(order.getStatusOrder().equals(StatusOrder.CREATE)){
+                    String result=Main.shopService.confirmOrderUserByAdmin(order.getUser().getUsername(),
+                            order.getProduct().getName());
+                    if(result.equals("Success")){
+                        resultLBL.setText(result);
+                        resultLBL.setTextFill(Color.GREEN);
+                        loadTable();
+                    }else {
+                        resultLBL.setText(result);
+                        resultLBL.setTextFill(Color.RED);
+                    }
                 }
             }
+
         });
 
         existBTN.setOnAction(x->{

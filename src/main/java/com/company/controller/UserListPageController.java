@@ -76,23 +76,23 @@ public class UserListPageController implements Initializable {
             }
         });
 
-        TableColumn<Admin,Integer> idCol=new TableColumn<>("Id");
+        TableColumn<Admin,Integer> idCol=new TableColumn<>("ردیف");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         idCol.setPrefWidth(150);
 
-        TableColumn<Admin,String> usernameCol=new TableColumn<>("Username");
+        TableColumn<Admin,String> usernameCol=new TableColumn<>("نام کاربری");
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         usernameCol.setPrefWidth(150);
 
-        TableColumn<Admin,String> passeCol=new TableColumn<>("Password");
+        TableColumn<Admin,String> passeCol=new TableColumn<>("رمز عبور");
         passeCol.setCellValueFactory(new PropertyValueFactory<>("password"));
         passeCol.setPrefWidth(150);
 
-        TableColumn<Admin,String> phoneCol=new TableColumn<>("Phone");
+        TableColumn<Admin,String> phoneCol=new TableColumn<>("تلفن");
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         phoneCol.setPrefWidth(150);
 
-        TableColumn<Admin,String> emailCol=new TableColumn<>("Email");
+        TableColumn<Admin,String> emailCol=new TableColumn<>("ایمیل");
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         emailCol.setPrefWidth(150);
 

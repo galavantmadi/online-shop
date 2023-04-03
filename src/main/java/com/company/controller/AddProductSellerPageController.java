@@ -68,7 +68,8 @@ public class AddProductSellerPageController implements Initializable {
         });
 
         addBTN.setOnAction(c->{
-
+            resultLBL.setText("");
+            resultLBL.setTextFill(Color.BLACK);
             saveProductForSeller();
         });
     }
@@ -78,12 +79,32 @@ public class AddProductSellerPageController implements Initializable {
         String price=priceTXT.getText();
         String qty=quantityTXT.getText();
         String selectStr=categoryId.getSelectionModel().getSelectedItem();
+        if(name.equals("")||price.equals("")||qty.equals("")||
+                selectStr==null ){
+            resultLBL.setText("اطلاعات وارد نشده است");
+            resultLBL.setTextFill(Color.RED);
+            return;
+        }
+        if(!price.matches("[0-9]+")){
+            resultLBL.setText("برای مبلغ فقط عدد وارد شود");
+            resultLBL.setTextFill(Color.RED);
+        }
+        if(!qty.matches("[0-9]+")){
+            resultLBL.setText("برای تعداد فقط عدد وارد شود");
+            resultLBL.setTextFill(Color.RED);
+        }
+
         Optional<Category> category = Main.shopService.getCategoryList().stream().filter(c->c.getTitle().equals(selectStr)).findAny();
         Product product=new Product(getNextCountValue(),name,Integer.parseInt(qty),Integer.parseInt(price),
                 new ArrayList<>(),"", category.orElseGet(Category::new), Main.shopService.getSeller());
         String result=sellerPageController.addProductToTable(product);
         if(result.equals("Success")){
             sellerPageController.loadTable();
+            nameTXT.setText("");
+            priceTXT.setText("");
+            quantityTXT.setText("");
+            categoryId.getSelectionModel().clearSelection();
+            categoryId.getItems().clear();
         }else {
             resultLBL.setText(result);
             resultLBL.setTextFill(Color.RED);

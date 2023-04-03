@@ -68,11 +68,11 @@ public class CategoryListPageController implements Initializable {
             stage.show();
         });
 
-        TableColumn<Category,Integer> idCol=new TableColumn<>("Id");
+        TableColumn<Category,Integer> idCol=new TableColumn<>("ردیف");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         idCol.setPrefWidth(150);
 
-        TableColumn<Category,String> titleCol=new TableColumn<>("Title");
+        TableColumn<Category,String> titleCol=new TableColumn<>("عنوان");
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         idCol.setPrefWidth(150);
 

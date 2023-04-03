@@ -43,23 +43,23 @@ public class RequestIncreaseWalletListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TableColumn<RequestWalletCharge,Integer> idCol=new TableColumn<>("Id");
+        TableColumn<RequestWalletCharge,Integer> idCol=new TableColumn<>("ردیف");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         idCol.setPrefWidth(150);
 
-        TableColumn<RequestWalletCharge,String> userCol=new TableColumn<>("Username");
+        TableColumn<RequestWalletCharge,String> userCol=new TableColumn<>("نام کاربری");
         userCol.setCellValueFactory(c-> new SimpleObjectProperty<String>(c.getValue().getUser().getUsername()));
         userCol.setPrefWidth(150);
 
-        TableColumn<RequestWalletCharge, String> dateCol=new TableColumn<>("Date");
+        TableColumn<RequestWalletCharge, String> dateCol=new TableColumn<>("تاریخ");
         dateCol.setCellValueFactory(c-> new SimpleObjectProperty<String>(new SimpleDateFormat("dd/MM/yyyy").format(c.getValue().getCreateTime())));
         dateCol.setPrefWidth(150);
 
-        TableColumn<RequestWalletCharge, Long> amountCol=new TableColumn<>("Amount");
+        TableColumn<RequestWalletCharge, Long> amountCol=new TableColumn<>("مبلغ");
         amountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
         dateCol.setPrefWidth(150);
 
-        TableColumn<RequestWalletCharge,String> statusCol=new TableColumn<>("Status");
+        TableColumn<RequestWalletCharge,String> statusCol=new TableColumn<>("وضعیت");
         statusCol.setCellValueFactory(c-> new SimpleObjectProperty<String>(c.getValue().getStatus().name()));
         statusCol.setPrefWidth(150);
 
@@ -107,12 +107,15 @@ public class RequestIncreaseWalletListController implements Initializable {
 
         rejectBTN.setOnAction(v->{
             RequestWalletCharge charge=requestWalletTBL.getSelectionModel().getSelectedItem();
-            Main.shopService.getRequestWalletChargeArrayList().forEach(c->{
-                if(c.getId()==charge.getId() && c.getStatus().equals(charge.getStatus())){
-                    c.setStatus(Status.REJECT);
-                }
-            });
-            loadTable();
+            if(charge!=null){
+                Main.shopService.getRequestWalletChargeArrayList().forEach(c->{
+                    if(c.getId()==charge.getId() && c.getStatus().equals(charge.getStatus())){
+                        c.setStatus(Status.REJECT);
+                    }
+                });
+                loadTable();
+            }
+
         });
 
     }

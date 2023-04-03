@@ -101,10 +101,10 @@ public class LoginController implements Initializable {
                 root.getScene().getWindow().hide();
                 FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("SellerPage.fxml"));
                 Parent  parent =loader.load();
-
+                SellerPageController controller=loader.<SellerPageController>getController();
                 Stage stage=new Stage();
                 stage.setScene(new Scene(loader.getRoot()));
-
+                controller.setUsername(usernameField.getText());
                 stage.show();
             }
 

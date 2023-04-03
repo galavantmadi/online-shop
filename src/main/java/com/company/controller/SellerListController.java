@@ -102,42 +102,45 @@ public class SellerListController implements Initializable {
 
         activeBTN.setOnAction(c->{
             Seller seller=sellerListTBL.getSelectionModel().getSelectedItem();
-            if(seller.isActive()!=true){
-                Main.shopService.getSellerList().forEach(d->{
-                    if(d.equals(seller)){
-                        d.setActive(true);
-                    }
-                });
-                loadTable();
-                resultLBL.setText("Success");
-                resultLBL.setTextFill(Color.GREEN);
-            }else {
-                resultLBL.setText("Seller Is Active");
-                resultLBL.setTextFill(Color.RED);
+            if(seller!=null){
+                if(!seller.isActive()){
+                    Main.shopService.getSellerList().forEach(d->{
+                        if(d.equals(seller)){
+                            d.setActive(true);
+                        }
+                    });
+                    loadTable();
+                    resultLBL.setText("Success");
+                    resultLBL.setTextFill(Color.GREEN);
+                }else {
+                    resultLBL.setText("Seller Is Active");
+                    resultLBL.setTextFill(Color.RED);
+                }
             }
+
         });
 
-        TableColumn<Seller,Integer> idCol=new TableColumn<>("Id");
+        TableColumn<Seller,Integer> idCol=new TableColumn<>("ردیف");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         idCol.setPrefWidth(150);
 
-        TableColumn<Seller,String> usernameCol=new TableColumn<>("Username");
+        TableColumn<Seller,String> usernameCol=new TableColumn<>("نام کاربری");
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         usernameCol.setPrefWidth(150);
 
-        TableColumn<Seller,String> passeCol=new TableColumn<>("Password");
+        TableColumn<Seller,String> passeCol=new TableColumn<>("رمز عبور");
         passeCol.setCellValueFactory(new PropertyValueFactory<>("password"));
         passeCol.setPrefWidth(150);
 
-        TableColumn<Seller,String> phoneCol=new TableColumn<>("Phone");
+        TableColumn<Seller,String> phoneCol=new TableColumn<>("تلفن");
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         phoneCol.setPrefWidth(150);
 
-        TableColumn<Seller,String> companyNameCol=new TableColumn<>("Company");
+        TableColumn<Seller,String> companyNameCol=new TableColumn<>("نام شرکت");
         companyNameCol.setCellValueFactory(new PropertyValueFactory<>("companyName"));
         companyNameCol.setPrefWidth(150);
 
-        TableColumn<Seller,Boolean> statusCol=new TableColumn<>("Status");
+        TableColumn<Seller,Boolean> statusCol=new TableColumn<>("وضعیت");
         statusCol.setCellValueFactory(c-> new SimpleObjectProperty<Boolean>(c.getValue().isActive()));
         statusCol.setPrefWidth(150);
 

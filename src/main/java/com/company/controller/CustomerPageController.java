@@ -57,27 +57,27 @@ public class CustomerPageController implements Initializable {
             }
         });
 
-        TableColumn<User,Integer> idCol=new TableColumn<>("Id");
+        TableColumn<User,Integer> idCol=new TableColumn<>("ردیف");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         idCol.setPrefWidth(150);
 
-        TableColumn<User,String> usernameCol=new TableColumn<>("Username");
+        TableColumn<User,String> usernameCol=new TableColumn<>("نام کاربری");
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         usernameCol.setPrefWidth(150);
 
-        TableColumn<User,String> passeCol=new TableColumn<>("Password");
+        TableColumn<User,String> passeCol=new TableColumn<>("رمز عبور");
         passeCol.setCellValueFactory(new PropertyValueFactory<>("password"));
         passeCol.setPrefWidth(150);
 
-        TableColumn<User,String> phoneCol=new TableColumn<>("Phone");
+        TableColumn<User,String> phoneCol=new TableColumn<>("تلفن");
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         phoneCol.setPrefWidth(150);
 
-        TableColumn<User,String> emailCol=new TableColumn<>("Email");
+        TableColumn<User,String> emailCol=new TableColumn<>("ایمیل");
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         emailCol.setPrefWidth(150);
 
-        TableColumn<User,String> addressCol=new TableColumn<>("Address");
+        TableColumn<User,String> addressCol=new TableColumn<>("آدرس");
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         addressCol.setPrefWidth(300);
 

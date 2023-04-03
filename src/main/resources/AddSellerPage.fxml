@@ -12,35 +12,35 @@
     <children>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
             <children>
-                <VBox alignment="CENTER" prefHeight="135.0" prefWidth="100.0" spacing="15.0">
-                    <children>
-                        <Label text="Username : ">
-                            <VBox.margin>
-                                <Insets left="22.0" />
-                            </VBox.margin></Label>
-                        <Label text="Password : ">
-                            <VBox.margin>
-                                <Insets left="27.0" />
-                            </VBox.margin>
-                        </Label>
-                        <Label text="Phone : ">
-                            <VBox.margin>
-                                <Insets left="48.0" />
-                            </VBox.margin>
-                        </Label>
-                        <Label text="Company Name :">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </Label>
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER" prefHeight="165.0" prefWidth="156.0" spacing="10.0">
-                    <children>
+                <VBox alignment="CENTER" prefHeight="115.0" prefWidth="137.0" spacing="5.0">
+               <children>
                         <TextField fx:id="usernameTXT" />
                         <TextField fx:id="passTXT" />
                         <TextField fx:id="phoneTXT" />
                         <TextField fx:id="companyTXT" />
+               </children>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="145.0" prefWidth="107.0" spacing="10.0">
+                    <children>
+                        <Label text="نام کاربری">
+                            <VBox.margin>
+                                <Insets left="22.0" />
+                            </VBox.margin></Label>
+                        <Label text="رمزعبور">
+                            <VBox.margin>
+                                <Insets left="27.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label text="تلفن">
+                            <VBox.margin>
+                                <Insets left="38.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label text="نام شرکت">
+                            <VBox.margin>
+                                <Insets left="13.0" />
+                            </VBox.margin>
+                        </Label>
                     </children>
                     <padding>
                         <Insets top="5.0" />
@@ -50,14 +50,14 @@
         </HBox>
         <VBox alignment="CENTER" prefHeight="59.0" prefWidth="342.0" spacing="5.0">
             <children>
-                <Button fx:id="addBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Add">
+                <Button fx:id="addBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="ثبت اطلاعات">
                     <VBox.margin>
-                        <Insets left="100.0" />
+                        <Insets right="90.0" />
                     </VBox.margin>
                 </Button>
                 <Label fx:id="resultLBL" prefHeight="17.0" prefWidth="152.0">
                     <VBox.margin>
-                        <Insets left="100.0" />
+                        <Insets right="90.0" />
                     </VBox.margin>
                 </Label>
             </children>

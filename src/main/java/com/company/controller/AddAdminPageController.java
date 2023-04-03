@@ -62,11 +62,20 @@ public class AddAdminPageController  implements Initializable{
         String password=passTXT.getText();
         String phone=phoneTXT.getText();
         String email=emailTXT.getText();
+        if(username.equals("")||password.equals("")||phone.equals("")||email.equals("")){
+            resultLBL.setText("اطلاعات وارد نشده است");
+            resultLBL.setTextFill(Color.RED);
+            return;
+        }
 
         Admin admin=new Admin(getNextCountValue(),username,password,phone, AccountType.ADMIN,true,"",email);
         String result= userListPageController.addAdminToTable(admin);
         if(result.equals("Success")){
             userListPageController.loadTable(Main.shopService.getAdminList());
+            usernameTXT.setText("");
+            passTXT.setText("");
+            phoneTXT.setText("");
+            emailTXT.setText("");
         }else {
             resultLBL.setText(result);
             resultLBL.setTextFill(Color.RED);
@@ -77,7 +86,8 @@ public class AddAdminPageController  implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addBTN.setOnAction(c->{
-
+            resultLBL.setText("");
+            resultLBL.setTextFill(Color.BLACK);
             saveAdmin();
         });
     }

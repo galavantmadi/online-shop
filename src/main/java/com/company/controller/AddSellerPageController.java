@@ -66,12 +66,22 @@ public class AddSellerPageController implements Initializable {
         String phone=phoneTXT.getText();
         String company=companyTXT.getText();
         int count= Main.shopService.getProductList().size();
+        if(username.equals("")|| password.equals("")||phone.equals("")||
+        company.equals("")){
+            resultLBL.setText("اطلاعات وارد نشده است");
+            resultLBL.setTextFill(Color.RED);
+            return;
+        }
 
         Seller seller=new Seller(count+1,username,password,phone, AccountType.SELLER,true,"",company,new Wallet(WalletType.SELLER,0)
                 ,new ArrayList<>());
         String result=sellerListController.addSellerToTable(seller);
         if(result.equals("Success")){
             sellerListController.loadTable();
+            usernameTXT.setText("");
+            passTXT.setText("");
+            phoneTXT.setText("");
+            companyTXT.setText("");
         }else {
             resultLBL.setText(result);
             resultLBL.setTextFill(Color.RED);
@@ -82,7 +92,8 @@ public class AddSellerPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addBTN.setOnAction(c->{
-
+            resultLBL.setText("");
+            resultLBL.setTextFill(Color.BLACK);
             saveSeller();
         });
     }

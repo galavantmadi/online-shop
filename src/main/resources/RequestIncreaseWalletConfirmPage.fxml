@@ -36,14 +36,14 @@
         </HBox>
         <VBox alignment="CENTER" prefHeight="59.0" prefWidth="342.0" spacing="2.0">
             <children>
-                <Button fx:id="saveBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="ثبت تغییرات">
+                <Button fx:id="saveBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="ثبت تغییرات">
                     <VBox.margin>
-                        <Insets left="10.0" />
+                        <Insets right="102.0" />
                     </VBox.margin>
                 </Button>
             <Label fx:id="resultLBL" prefHeight="20.0" prefWidth="136.0">
                <VBox.margin>
-                  <Insets left="10.0" />
+                  <Insets right="102.0" />
                </VBox.margin>
             </Label>
             </children>

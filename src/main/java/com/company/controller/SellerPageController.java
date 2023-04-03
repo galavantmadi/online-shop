@@ -2,6 +2,8 @@ package com.company.controller;
 
 import com.company.Main;
 import com.company.model.Product;
+import com.company.model.RequestWalletCharge;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,33 +37,43 @@ public class SellerPageController implements Initializable {
 
     @FXML
     private TableView<Product> productSellerTBL;
+    private String username;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TableColumn<Product,Integer> idCol=new TableColumn<>("Id");
+        TableColumn<Product,Integer> idCol=new TableColumn<>("ردیف");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         idCol.setPrefWidth(150);
 
-        TableColumn<Product,String> nameCol=new TableColumn<>("Name");
+        TableColumn<Product,String> nameCol=new TableColumn<>("نام کالا");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameCol.setPrefWidth(150);
 
-        TableColumn<Product,Integer> qtyCol=new TableColumn<>("Quantity");
+        TableColumn<Product,Integer> qtyCol=new TableColumn<>("تعداد");
         qtyCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         qtyCol.setPrefWidth(150);
 
-        TableColumn<Product,String> priceCol=new TableColumn<>("Price");
+        TableColumn<Product,String> priceCol=new TableColumn<>("قیمت کالا");
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         priceCol.setPrefWidth(150);
 
-        productSellerTBL.getColumns().addAll(idCol,nameCol,qtyCol,priceCol);
+        TableColumn<Product,String> categoryCol=new TableColumn<>("نوع کالا");
+        categoryCol.setCellValueFactory(c-> new SimpleObjectProperty<String>(c.getValue().getCategory().getTitle()));
+        categoryCol.setPrefWidth(150);
+
+        productSellerTBL.getColumns().addAll(idCol,nameCol,qtyCol,priceCol,categoryCol);
 
         loadTable();
 
         existBTN.setOnAction(x->{
             root.getScene().getWindow().hide();
-            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("LoginPage.fxml"));
+            Main.shopService.logOut(username);
+            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("MainPage.fxml"));
             try {
                 Parent parent =loader.load();
             } catch (IOException e) {
