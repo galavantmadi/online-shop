@@ -33,6 +33,9 @@ public class LoginController implements Initializable {
     private Button loginBTN;
 
     @FXML
+    private Button exitBTN;
+
+    @FXML
     private VBox root;
 
     @FXML
@@ -70,6 +73,23 @@ public class LoginController implements Initializable {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        });
+
+        exitBTN.setOnAction(c->{
+            root.getScene().getWindow().hide();
+            FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("MainPage.fxml"));
+            try {
+                Parent  parent =loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Stage stage=new Stage();
+            stage.setScene(new Scene(loader.getRoot()));
+            stage.setResizable(false);
+
+            stage.show();
+
         });
     }
 

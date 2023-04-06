@@ -31,11 +31,20 @@
       </HBox>
       <VBox alignment="CENTER" prefHeight="59.0" prefWidth="270.0" spacing="8.0">
          <children>
-            <Button fx:id="loginBTN" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="ورود">
-               <VBox.margin>
-                  <Insets right="90.0" />
-               </VBox.margin>
-            </Button>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Button fx:id="exitBTN" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="بازگشت">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="loginBTN" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="ورود">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
             <Label fx:id="resultLBL" alignment="CENTER" prefHeight="17.0" prefWidth="155.0" text="">
                <VBox.margin>
                   <Insets right="90.0" />

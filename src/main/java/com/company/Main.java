@@ -19,7 +19,7 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         //Admin
-        admin=new Admin(1,"peyman","123","09391120290", AccountType.ADMIN,true,"","peyman@.com");
+        admin=new Admin(1,"admin","123","09391120290", AccountType.ADMIN,true,"","peyman@.com");
         ArrayList<Admin> admins=new ArrayList<>();
         admins.add(admin);
 
@@ -111,6 +111,7 @@ public class Main extends Application {
         FXMLLoader loader=new FXMLLoader(this.getClass().getClassLoader().getResource("MainPage.fxml"));
         loader.load();
         primaryStage.setScene(new Scene(loader.getRoot()));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
