@@ -122,7 +122,7 @@ public class SellerListController implements Initializable {
 
         TableColumn<Seller,Integer> idCol=new TableColumn<>("ردیف");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        idCol.setPrefWidth(150);
+        idCol.setPrefWidth(50);
 
         TableColumn<Seller,String> usernameCol=new TableColumn<>("نام کاربری");
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -142,9 +142,13 @@ public class SellerListController implements Initializable {
 
         TableColumn<Seller,Boolean> statusCol=new TableColumn<>("وضعیت");
         statusCol.setCellValueFactory(c-> new SimpleObjectProperty<Boolean>(c.getValue().isActive()));
+        statusCol.setPrefWidth(100);
+
+        TableColumn<Seller,String> walletCol=new TableColumn<>("موجودی");
+        walletCol.setCellValueFactory(c-> new SimpleObjectProperty<String>(String.valueOf(c.getValue().getWallet().getBalance())));
         statusCol.setPrefWidth(150);
 
-        sellerListTBL.getColumns().addAll(idCol,usernameCol,passeCol,phoneCol,companyNameCol,statusCol);
+        sellerListTBL.getColumns().addAll(idCol,usernameCol,passeCol,phoneCol,companyNameCol,walletCol,statusCol);
 
         loadTable();
 

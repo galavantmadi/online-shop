@@ -109,6 +109,9 @@ public class ProductViewPageController implements Initializable {
                         resultLBL.setTextFill(Color.GREEN);
                        mainPageController.countShoppingCart();
                        root.getScene().getWindow().hide();
+                    }else {
+                        resultLBL.setText("تعداد کالا معتبر نمی باشد");
+                        resultLBL.setTextFill(Color.RED);
                     }
                 }else {
                     resultLBL.setText("کالا معتبر نمی باشد");

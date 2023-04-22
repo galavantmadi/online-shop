@@ -480,12 +480,19 @@ public class ShopService {
                     user1.getWallet().setBalance(user1.getWallet().getBalance() - c.getTotalAmount());
                     Optional<Product> product = productList.stream().filter(d -> d.getName().equals(c.getProduct().getName()) &&
                             d.getSeller().equals(c.getProduct().getSeller())).findAny();
-                    product.ifPresent(value -> sellerList.forEach(s -> {
-                        if (s.equals(value.getSeller())) {
-                            s.getWallet().setBalance((c.getTotalAmount() * 90) / 100);
+                    product.ifPresent(value -> {
+                        sellerList.forEach(s -> {
+                            if (s.equals(value.getSeller())) {
+                                s.getWallet().setBalance(s.getWallet().getBalance()+((c.getTotalAmount() * 90) / 100));
+                                s.getProductList().forEach(p -> {
+                                    if (p.equals(product.get())) {
+                                        p.setQuantity(p.getQuantity() - c.getQty());
+                                    }
+                                });
 
-                        }
-                    }));
+                            }
+                        });
+                    });
                     shopList.get(0).setTotalProfit(shopList.get(0).getTotalProfit() + (c.getTotalAmount() * 10) / 100);
 
                 }
